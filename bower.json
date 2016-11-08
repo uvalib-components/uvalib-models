@@ -1,0 +1,19 @@
+{
+  "name": "uvalib-models",
+  "description": "data models used for the Library site",
+  "main": "uvalib-models.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "byutv-jsonp": "^1.3.0",
+    "uvalib-helper-libs": "uvalib-components/uvalib-helper-libs#master"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "resolutions": {
+    "lodash": "^4.15.0"
+  }
+}

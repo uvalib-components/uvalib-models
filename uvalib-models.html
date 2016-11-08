@@ -1,0 +1,34 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`uvalib-models`
+data models used for the Library site
+
+@demo demo/index.html 
+-->
+
+<dom-module id="uvalib-models">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]</h2>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-models',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'uvalib-models',
+        },
+      },
+
+    });
+  </script>
+</dom-module>
