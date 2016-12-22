@@ -17,10 +17,13 @@
   <body>
 
     <div class="vertical-section-container centered">
-      <h3>Basic uvalib-models Demo</h3>
       <demo-snippet>
-        <template>
-          <uvalib-models></uvalib-models>
+        <template is="dom-bind">
+          <uvalib-model-banners data="{{banners}}"></uvalib-model-banners>
+          <template is="dom-repeat" items="{{banners}}">
+            <h1>{{item.title}}</h1>
+            <img src="{{item.desktopImage.url}}" />
+          </template>
         </template>
       </demo-snippet>
     </div>

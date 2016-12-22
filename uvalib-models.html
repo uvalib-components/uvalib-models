@@ -1,31 +1,60 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymerfire/firebase.html">
+<link rel="import" href="../polymerfire/firebase-query.html">
+<link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+<link rel="import" href="firebase-app.html">
 
 <!--
-`uvalib-models`
-data models used for the Library site
+`uvalib-model-banners`
+data model for the banners used for the Library site
 
-@demo demo/index.html 
+@demo demo/index.html
 -->
 
-<dom-module id="uvalib-models">
+<dom-module id="uvalib-model-banners">
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <h2>Hello [[prop1]]</h2>
+    <firebase-query id="query"
+      app-name="uvalibapi"
+      path="/banners/main"
+      data="{{tmpData}}">
+    </firebase-query>
+    <app-indexeddb-mirror
+        key="banners"
+        data="{{tmpData}}"
+        persisted-data="{{data}}">
+    </app-indexeddb-mirror>
   </template>
 
   <script>
     Polymer({
 
-      is: 'uvalib-models',
+      is: 'uvalib-model-banners',
 
       properties: {
-        prop1: {
+        /**
+         * The banners
+         *
+         * @type {Object[]}
+         */
+        data: {
+          type: Array,
+          value: [],
+          notify: true
+        },
+        test: {
+          type: Array,
+          value: [
+            {title:'foo'},
+            {title:'bar'}
+          ],
+          notify: true
+        },
+        /**
+         * The area the banners will be displayed to
+         */
+        area: {
           type: String,
-          value: 'uvalib-models',
+          value: 'main',
         },
       },
 
