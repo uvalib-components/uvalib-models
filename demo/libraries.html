@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <title>uvalib-models demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../google-map/google-map.html">
+    <link rel="import" href="../../google-map/google-map-marker.html">
+
+    <link rel="import" href="../uvalib-model-libraries.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <template is="dom-bind">
+          <style>
+          google-map {
+            height: 600px;
+          }
+          </style>
+          <uvalib-model-libraries data="{{libraries}}"></uvalib-model-libraries>
+
+          <h2>All libraries</h2>
+          <template is="dom-repeat" items="{{libraries}}">
+            <h3>{{item.title}}</h3>
+          </template>
+
+          <h2>Map of Libraries</h2>
+          <google-map fit-to-markers api-key="AIzaSyBxAaVYnYIkwmvR4pigOojpxvli_OxBeFs">
+            <template is="dom-repeat" items="{{libraries}}">
+              <google-map-marker latitude="{{item.location.lat}}" longitude="{{item.location.lng}}" title="{{item.title}}"></google-map-marker>
+            </template>
+          </google-map>
+
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

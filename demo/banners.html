@@ -19,10 +19,18 @@
     <div class="vertical-section-container centered">
       <demo-snippet>
         <template is="dom-bind">
-
+          <style>
+            img {width: 100%;}
+          </style>
           <uvalib-model-banners data="{{banners}}" random="{{random}}"></uvalib-model-banners>
           <h2>Random Banner</h2>
           <p>{{random.title}}</p>
+
+          <h2>All Live Banners</h2>
+          <template is="dom-repeat" items="{{banners}}">
+            <h1>{{item.title}}</h1>
+            <img src="{{item.desktopImage.url}}" />
+          </template>
           
         </template>
       </demo-snippet>
