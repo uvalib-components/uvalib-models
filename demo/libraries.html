@@ -28,17 +28,43 @@
           </style>
           <uvalib-model-libraries data="{{libraries}}"></uvalib-model-libraries>
 
-          <h2>All libraries</h2>
-          <template is="dom-repeat" items="{{libraries}}">
-            <h3>{{item.title}}</h3>
-          </template>
-
           <h2>Map of Libraries</h2>
           <google-map fit-to-markers api-key="AIzaSyBxAaVYnYIkwmvR4pigOojpxvli_OxBeFs">
             <template is="dom-repeat" items="{{libraries}}">
               <google-map-marker latitude="{{item.location.lat}}" longitude="{{item.location.lng}}" title="{{item.title}}"></google-map-marker>
             </template>
           </google-map>
+
+          <h2>All libraries</h2>
+          <template is="dom-repeat" items="{{libraries}}">
+            <h3>{{item.title}}</h3>
+            <dl>
+              <dt>UUID</dt><dd>{{item.uuid}}</dd>
+              <dt>ID</dt><dd>{{item.id}}</dd>
+              <dt>Facilities Mgt Key</dt><dd>{{item.fmKey}}</dd>
+              <dt>Location</dt><dd>{{item.location.lat}},{{item.location.lng}}</dd>
+              <dt>Donor Title</dt><dd>{{item.donorTitle}}</dd>
+              <dt>MyGroup Id</dt><dd>{{item.mygroupID}}</dd>
+              <dt>Phone</dt><dd>{{item.phoneNumber}}</dd>
+              <dt>Zip Code</dt><dd>{{item.zipCode}}</dd>
+              <dt>Social Media</dt>
+              <dd><ul>
+                <template is="dom-repeat" items="{{item.socialMedia}}">
+                  <li><a href="{{item.uri}}">{{item.title}}</a></li>
+                </template>
+                <!-- Single channels are not Arrays -->
+                <template is="dom-if" if="{{item.socialMedia.title}}">
+                  <li><a href="{{item.socialMedia.uri}}">{{item.socialMedia.title}}</a></li>
+                </template>
+              </ul></dd>
+              <dt>Donor Description</dt><dd><div inner-h-t-m-l="{{item.donorDescription}}"></div></dd>
+              <dt>Description</dt><dd><div inner-h-t-m-l="{{item.body}}"></div></dd>
+              <template is="dom-if" if="{{item.mainImage}}">
+                <dt>Main Image</dt>
+                <dd><img id="{{item.mainImage.uuid}}" alt="{{item.mainImage.alt}}" src="{{item.mainImage.url}}"/></dd>
+              </template>
+            </dl>
+          </template>
 
         </template>
       </demo-snippet>
