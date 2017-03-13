@@ -5,20 +5,20 @@
 <link rel="import" href="firebase-app.html">
 
 <!--
-`uvalib-model-destinations`
-data model for the destinations used to locate resources/services in the Library
+`uvalib-model-alerts`
+data model for the alerts/notifications used on the Library's Web sites
 
-@demo demo/destinations.html
+@demo demo/alerts.html
 -->
 
-<dom-module id="uvalib-model-destinations">
+<dom-module id="uvalib-model-alerts">
   <template>
     <firebase-document id="query" app-name="uvalibapi"
-      path="/destinations"
+      path="/alerts"
       data="{{tmpData}}" zero-value="[]">
     </firebase-document>
     <app-indexeddb-mirror
-        key="destinations"
+        key="alerts"
         data="{{tmpData}}"
         persisted-data="{{data}}">
     </app-indexeddb-mirror>
@@ -27,10 +27,10 @@ data model for the destinations used to locate resources/services in the Library
   <script>
     Polymer({
 
-      is: 'uvalib-model-destinations',
+      is: 'uvalib-model-alerts',
       properties: {
         /**
-         * The Destinations
+         * The Alerts
          *
          * @type {Object[]}
          */
