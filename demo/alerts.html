@@ -26,6 +26,9 @@
           <template is="dom-repeat" items="{{alerts}}">
             <h1>{{item.title}}</h1>
             <h2>Type: {{item.type}}</h2>
+            <h3>Created: {{item.created}}</h3>
+            <h3>Changed: {{item.changed}}</h3>
+            <h3>UUID: {{item.uuid}}</h3>
             <p inner-h-t-m-l="{{item.body}}"></p>
           </template>
 
