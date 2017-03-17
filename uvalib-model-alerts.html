@@ -15,7 +15,7 @@ data model for the alerts/notifications used on the Library's Web sites
   <template>
     <firebase-query id="query" log app-name="uvalibapi"
       path="/alerts"
-      data="{{tmpData}}"></firebase-query>
+      data="{{tmpData}}" zero-value="[]"></firebase-query>
     <app-indexeddb-mirror
         key="alerts"
         data="{{tmpData}}"

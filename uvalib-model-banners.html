@@ -16,7 +16,7 @@ data model for the banners used for the Library site
   <template>
     <firebase-query id="query" log app-name="uvalibapi"
       path="/homebanners"
-      data="{{tmpData}}"></firebase-query>
+      data="{{tmpData}}" zero-value="[]"></firebase-query>
     <app-indexeddb-mirror
         key="banners"
         data="{{tmpData}}"
