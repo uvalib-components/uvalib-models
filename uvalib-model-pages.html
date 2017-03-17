@@ -13,16 +13,14 @@ data model for the alerts/notifications used on the Library's Web sites
 
 <dom-module id="uvalib-model-pages">
   <template>
-    <firebase-query id="query" log app-name="uvalibapi"
+    <firebase-query id="query" app-name="uvalibapi"
       path="/pages"
-      data="{{data}}" zero-value="[]"></firebase-query>
-      <!--
+      data="{{tmpData}}" zero-value="[]"></firebase-query>
     <app-indexeddb-mirror
         key="pages"
         data="[[tmpData]]"
         persisted-data="{{data}}">
     </app-indexeddb-mirror>
-  -->
   </template>
 
   <script>
