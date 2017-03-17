@@ -17,12 +17,30 @@
   <body>
 
     <div class="vertical-section-container centered">
+
+      <demo-snippet>
+        <template id="app" is="dom-bind">
+
+          <uvalib-model-pages path="/about-uva-library" page="{{page}}"></uvalib-model-pages>
+
+          <h2>About Page</h2>
+
+          <h1>{{page.title}}</h1>
+          <h3>Created: {{page.created}}</h3>
+          <h3>Changed: {{page.changed}}</h3>
+          <h3>UUID: {{page.uuid}}</h3>
+          <h3>Paths: {{page.paths}}</h3>
+          <p inner-h-t-m-l="{{page.body}}"></p>
+
+        </template>
+      </demo-snippet>
+
       <demo-snippet>
         <template id="app" is="dom-bind">
 
           <uvalib-model-pages data="{{pages}}"></uvalib-model-pages>
 
-          <h2>All Pages</h2>
+          <h2>Pages</h2>
           <template is="dom-repeat" items="{{pages}}">
             <h1>{{item.title}}</h1>
             <h3>Created: {{item.created}}</h3>

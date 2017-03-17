@@ -1,8 +1,9 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../polymerfire/firebase.html">
-<link rel="import" href="../polymerfire/firebase-query.html">
+<link rel="import" href="../polymerfire/firebase-document.html">
 <link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
 <link rel="import" href="firebase-app.html">
+<link rel="import" href="../uvalib-helper-libs/lodash.html">
 
 <!--
 `uvalib-model-pages`
@@ -13,9 +14,9 @@ data model for the alerts/notifications used on the Library's Web sites
 
 <dom-module id="uvalib-model-pages">
   <template>
-    <firebase-query id="query" app-name="uvalibapi"
+    <firebase-document id="query" app-name="uvalibapi"
       path="/pages"
-      data="{{tmpData}}" zero-value="[]"></firebase-query>
+      data="{{tmpData}}" zero-value="[]"></firebase-document>
     <app-indexeddb-mirror
         key="pages"
         data="[[tmpData]]"
@@ -29,6 +30,13 @@ data model for the alerts/notifications used on the Library's Web sites
       is: 'uvalib-model-pages',
       properties: {
         /**
+         *
+         */
+        path: {
+          type: String,
+          value: null
+        },
+        /**
          * The Alerts
          *
          * @type {Object[]}
@@ -37,7 +45,25 @@ data model for the alerts/notifications used on the Library's Web sites
           type: Array,
           value: [],
           notify: true
+        },
+        page: {
+          type: Object,
+          computed: "_filterPage(path, data)",
+          notify: true
         }
+      },
+
+      _filterPage: function(path, data){
+        if (data && data.length > 0)
+          return _.find(data, function(item){
+            if (Array.isArray(item.paths))
+              return _.findIndex(item.paths, ['paths',path]) > -1;
+            else {
+              return item.paths == path;
+            }
+          });
+        else
+          return null;
       }
 
     });
