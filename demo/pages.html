@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <title>uvalib-model-pages demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="../uvalib-model-pages.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <template id="app" is="dom-bind">
+
+          <uvalib-model-pages data="{{pages}}"></uvalib-model-pages>
+
+          <h2>All Pages</h2>
+          <template is="dom-repeat" items="{{pages}}">
+            <h1>{{item.title}}</h1>
+            <h3>Created: {{item.created}}</h3>
+            <h3>Changed: {{item.changed}}</h3>
+            <h3>UUID: {{item.uuid}}</h3>
+            <h3>Paths: {{item.paths}}</h3>
+            <p inner-h-t-m-l="{{item.body}}"></p>
+          </template>
+
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

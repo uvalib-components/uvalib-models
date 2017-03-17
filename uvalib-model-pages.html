@@ -5,28 +5,30 @@
 <link rel="import" href="firebase-app.html">
 
 <!--
-`uvalib-model-alerts`
+`uvalib-model-pages`
 data model for the alerts/notifications used on the Library's Web sites
 
-@demo demo/alerts.html
+@demo demo/pages.html
 -->
 
-<dom-module id="uvalib-model-alerts">
+<dom-module id="uvalib-model-pages">
   <template>
-    <firebase-query id="query" app-name="uvalibapi"
-      path="/alerts"
-      data="{{tmpData}}" zero-value="[]"></firebase-query>
+    <firebase-query id="query" log app-name="uvalibapi"
+      path="/pages"
+      data="{{data}}" zero-value="[]"></firebase-query>
+      <!--
     <app-indexeddb-mirror
-        key="alerts"
+        key="pages"
         data="[[tmpData]]"
         persisted-data="{{data}}">
     </app-indexeddb-mirror>
+  -->
   </template>
 
   <script>
     Polymer({
 
-      is: 'uvalib-model-alerts',
+      is: 'uvalib-model-pages',
       properties: {
         /**
          * The Alerts
