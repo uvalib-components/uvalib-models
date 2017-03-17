@@ -18,7 +18,7 @@ data model for the alerts/notifications used on the Library's Web sites
       data="{{tmpData}}" zero-value="[]"></firebase-query>
     <app-indexeddb-mirror
         key="alerts"
-        data="{{tmpData}}"
+        data="[[tmpData]]"
         persisted-data="{{data}}">
     </app-indexeddb-mirror>
   </template>
