@@ -1,6 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../polymerfire/firebase.html">
-<link rel="import" href="../polymerfire/firebase-document.html">
+<link rel="import" href="../polymerfire/firebase-query.html">
 <link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
 <link rel="import" href="firebase-app.html">
 <link rel="import" href="../uvalib-helper-libs/uvalib-helper-behaviors.html">
@@ -14,10 +14,9 @@ data model for the banners used for the Library site
 
 <dom-module id="uvalib-model-banners">
   <template>
-    <firebase-document id="query" app-name="uvalibapi"
+    <firebase-query id="query" log app-name="uvalibapi"
       path="/homebanners"
-      data="{{tmpData}}" zero-value="[]">
-    </firebase-document>
+      data="{{tmpData}}"></firebase-query>
     <app-indexeddb-mirror
         key="banners"
         data="{{tmpData}}"
