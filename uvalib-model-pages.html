@@ -15,8 +15,7 @@ data model for the alerts/notifications used on the Library's Web sites
 <dom-module id="uvalib-model-pages">
   <template>
     <firebase-document id="query" app-name="uvalibapi"
-      path="/pages"
-      data="{{tmpData}}" zero-value="[]"></firebase-document>
+        path="/pages" data="{{tmpData}}" zero-value="[]"></firebase-document>
     <app-indexeddb-mirror
         key="pages"
         data="[[tmpData]]"
@@ -30,12 +29,13 @@ data model for the alerts/notifications used on the Library's Web sites
       is: 'uvalib-model-pages',
       properties: {
         /**
-         *
+         * Path specified in this property will filter the first resource found to the page property
          */
         path: {
           type: String,
           value: null
         },
+
         /**
          * The Alerts
          *
@@ -46,11 +46,15 @@ data model for the alerts/notifications used on the Library's Web sites
           value: [],
           notify: true
         },
+
+        /**
+         * If a path is specified, the page property will the page object
+         */
         page: {
           type: Object,
           computed: "_filterPage(path, data)",
           notify: true
-        }
+        },
       },
 
       _filterPage: function(path, data){
