@@ -9,7 +9,7 @@
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 
-    <link rel="import" href="../uvalib-model-services.html">
+    <link rel="import" href="../uvalib-model-query.html">
 
     <style is="custom-style" include="demo-pages-shared-styles">
     </style>
@@ -20,10 +20,25 @@
       <demo-snippet>
         <template id="app" is="dom-bind">
 
-          <uvalib-model-services featured data="{{services}}" query="{{query}}"></uvalib-model-services>
-          <h3>[[query]]</h3>
-          <h2>All Services</h2>
-          <template is="dom-repeat" items="{{services}}">
+          <uvalib-model-query featured data="{{services}}"
+          content-type="services"></uvalib-model-query>
+          <h2>All featured services</h2>
+          <template is="dom-repeat" items="[[services]]">
+            <h1>[[item.title]]</h1>
+          </template>
+
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <template id="app" is="dom-bind">
+
+          <uvalib-model-query data="{{libraries}}"
+          content-type="libraries"></uvalib-model-query>
+          <h2>All libraries</h2>
+          <template is="dom-repeat" items="[[libraries]]">
             <h1>[[item.title]]</h1>
           </template>
 

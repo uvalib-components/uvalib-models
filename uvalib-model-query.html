@@ -5,24 +5,24 @@
 <link rel="import" href="firebase-app.html">
 
 <!--
-`uvalib-model-services`
-data model for the Library's Services
+`uvalib-model-query`
+data query model for the Library's API
 
-@demo demo/services.html
+@demo demo/query.html
 -->
 
-<dom-module id="uvalib-model-services">
+<dom-module id="uvalib-model-query">
   <template>
     <template is="dom-if" if="[[featured]]" restamp>
       <firebase-query id="query" app-name="uvalibapi"
-        path="/services"
+        path="/[[contentType]]"
         order-by-child="featured"
         start-at="[[_start]]" end-at="[[_end]]"
         data="{{tmpData}}" zero-value="[]" query="{{query}}"></firebase-query>
     </template>
     <template is="dom-if" if="[[!featured]]" restamp>
       <firebase-query id="query" app-name="uvalibapi"
-        path="/services"
+        path="/[[contentType]]"
         data="{{tmpData}}" zero-value="[]" query="{{query}}"></firebase-query>
     </template>
 
@@ -36,7 +36,7 @@ data model for the Library's Services
   <script>
     Polymer({
 
-      is: 'uvalib-model-services',
+      is: 'uvalib-model-query',
       properties: {
         /**
          * The Services
@@ -52,6 +52,10 @@ data model for the Library's Services
           type: Boolean,
           value: false
         },
+        contentType: {
+          type: String,
+          value: "services"
+        },
         _start: {
           type: Number,
           value: 1
@@ -62,7 +66,8 @@ data model for the Library's Services
         }
       },
       _generateCacheKey: function(featured) {
-        return (featured)? "services-featured":"services";
+        return (featured)? this.contentType+"-featured":
+                           this.contentType;
       }
 
     });
