@@ -1,0 +1,70 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymerfire/firebase.html">
+<link rel="import" href="../polymerfire/firebase-query.html">
+<link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+<link rel="import" href="firebase-app.html">
+
+<!--
+`uvalib-model-services`
+data model for the Library's Services
+
+@demo demo/services.html
+-->
+
+<dom-module id="uvalib-model-services">
+  <template>
+    <template is="dom-if" if="[[featured]]" restamp>
+      <firebase-query id="query" app-name="uvalibapi"
+        path="/services"
+        order-by-child="featured"
+        start-at="[[_start]]" end-at="[[_end]]"
+        data="{{tmpData}}" zero-value="[]" query="{{query}}"></firebase-query>
+    </template>
+    <template is="dom-if" if="[[!featured]]" restamp>
+      <firebase-query id="query" app-name="uvalibapi"
+        path="/services"
+        data="{{tmpData}}" zero-value="[]" query="{{query}}"></firebase-query>
+    </template>
+
+    <app-indexeddb-mirror
+        key="[[_generateCacheKey(featured)]]"
+        data="[[tmpData]]"
+        persisted-data="{{data}}">
+    </app-indexeddb-mirror>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-model-services',
+      properties: {
+        /**
+         * The Services
+         *
+         * @type {Object[]}
+         */
+        data: {
+          type: Array,
+          value: [],
+          notify: true
+        },
+        featured: {
+          type: Boolean,
+          value: false
+        },
+        _start: {
+          type: Number,
+          value: 1
+        },
+        _end: {
+          type: Number,
+          value: 10000
+        }
+      },
+      _generateCacheKey: function(featured) {
+        return (featured)? "services-featured":"services";
+      }
+
+    });
+  </script>
+</dom-module>
