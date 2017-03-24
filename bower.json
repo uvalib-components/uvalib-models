@@ -7,5 +7,29 @@
   },
   "devDependencies": {
     "google-map": "GoogleWebComponents/google-map#^1.2.0"
+  },
+  "resolutions": {
+    "polymer": "^1.8.1",
+    "uvalib-elements": "master",
+    "uvalib-analytics": "master",
+    "uvalib-banner": "master",
+    "uvalib-button": "master",
+    "uvalib-header": "master",
+    "uvalib-events-card": "master",
+    "uvalib-helper-libs": "master",
+    "uvalib-alerts": "master",
+    "uvalib-card": "master",
+    "uvalib-hours-card": "master",
+    "uvalib-logos": "master",
+    "uvalib-social-links": "master",
+    "uvalib-nav": "master",
+    "uvalib-models": "master",
+    "uvalib-liame": "master",
+    "uvalib-search-box": "master",
+    "uvalib-news-section": "master",
+    "uvalib-skip-nav": "master",
+    "uvalib-theme": "master",
+    "uvalib-footer": "master",
+    "lodash": "^4.17.4"
   }
 }

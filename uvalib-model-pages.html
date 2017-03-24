@@ -1,73 +1,69 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../polymerfire/firebase.html">
-<link rel="import" href="../polymerfire/firebase-document.html">
+<link rel="import" href="../polymerfire/firebase-query.html">
 <link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
 <link rel="import" href="firebase-app.html">
-<link rel="import" href="../uvalib-helper-libs/lodash.html">
+<link rel="import" href="../uvalib-helper-libs/uvalib-helper-behaviors.html">
 
 <!--
 `uvalib-model-pages`
-data model for the alerts/notifications used on the Library's Web sites
+pages model for the Library's API
 
 @demo demo/pages.html
 -->
 
 <dom-module id="uvalib-model-pages">
   <template>
-    <firebase-document id="query" app-name="uvalibapi"
-        path="/pages" data="{{tmpData}}" zero-value="[]"></firebase-document>
+      <firebase-query id="query" app-name="uvalibapi"
+        path="/pages" order-by-child="path" equal-to="[[_path]]"
+        data="{{tmpData}}" zero-value="[]"></firebase-query>
+
     <app-indexeddb-mirror
-        key="pages"
+        key="[[_generateCacheKey(path)]]"
         data="[[tmpData]]"
-        persisted-data="{{data}}">
-    </app-indexeddb-mirror>
+        persisted-data="{{pages}}"></app-indexeddb-mirror>
+
   </template>
 
   <script>
     Polymer({
-
       is: 'uvalib-model-pages',
       properties: {
         /**
-         * Path specified in this property will filter the first resource found to the page property
-         */
-        path: {
-          type: String,
-          value: null
-        },
-
-        /**
-         * The Alerts
+         * The Pages Object
          *
          * @type {Object[]}
          */
-        data: {
+        pages: {
           type: Array,
           value: [],
           notify: true
         },
-
-        /**
-         * If a path is specified, the page property will the page object
-         */
         page: {
           type: Object,
-          computed: "_filterPage(path, data)",
+          computed: "_first(pages.*)",
           notify: true
         },
+        path: {
+          type: String,
+          value: null
+        },
+        _path: {
+          type: Object,
+          computed: "_mkPath(path)"
+        }
       },
-
-      _filterPage: function(path, data){
-        if (data && data.length > 0)
-          return _.find(data, function(item){
-            if (Array.isArray(item.paths))
-              return _.findIndex(item.paths, ['paths',path]) > -1;
-            else {
-              return item.paths == path;
-            }
-          });
-        else
-          return null;
+      _first: function(l) {
+        if (l.base && Array.isArray(l.base) && l.base.length > 0)
+          return l.base[0];
+        else return null;
+      },
+      _generateCacheKey: function(path) {
+        return (path)? "pages-"+path:
+                       "pages";
+      },
+      _mkPath: function(path) {
+        return (path)? path: null;
       }
 
     });
