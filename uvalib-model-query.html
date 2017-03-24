@@ -39,7 +39,7 @@ data query model for the Library's API
       is: 'uvalib-model-query',
       properties: {
         /**
-         * The Services
+         * The Services Object
          *
          * @type {Object[]}
          */
@@ -48,10 +48,16 @@ data query model for the Library's API
           value: [],
           notify: true
         },
+        /**
+         * Returns only featured items when true (if content type has a featured field)
+         */
         featured: {
           type: Boolean,
           value: false
         },
+        /**
+         * Sets the "content type" to query (used as the path in a query and the key of the indexed-db cache)
+         */
         contentType: {
           type: String,
           value: "services"
