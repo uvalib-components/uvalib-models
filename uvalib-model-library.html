@@ -1,0 +1,96 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="uvalib-model-libraries.html">
+
+<!--
+`uvalib-model-library`
+data model for a Library used in the Library site
+
+@demo demo/library.html
+-->
+
+<dom-module id="uvalib-model-library">
+  <template>
+    <template is="dom-if" if="{{!object}}" restamp>
+      <uvalib-model-libraries data="{{_data}}" filter="{{_filter}}"/>
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-model-library',
+
+      properties: {
+        /**
+         * The library that is being requested.  If the uuid property is not specified and the library property is, then this is used to define which Library is being requested.
+         */
+        library: {
+          value: null,
+          type: String,
+          notify: true
+        },
+        /**
+         * The library object as it is represented from the API.  If this property is set, the object provided is parsed and used, otherwise this is populated from the API request.
+         */
+        object: {
+          value: null,
+          type: Object,
+          notify: true
+        },
+        _data: {
+          value: null,
+          type: Array,
+          observer: "_dataChanged"
+        },
+        _filter: {
+          type: Object,
+          computed: '_makeFilter(uuid,library)'
+        },
+        /**
+         * The uuid of the Library.  If specified will define which Library is being requested (takes priority over the library property)
+         */
+        uuid: {
+          value: null,
+          type: String,
+          notify: true
+        },
+        /**
+         * The full name of the Library including any doner title
+         */
+        name: {
+          type: String,
+          computed: "_fullName(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The shortened name of the Library
+         */
+        shortName: {
+          type: String,
+          computed: "_shortName(object)",
+          readOnly: true
+        },
+      },
+
+      _dataChanged: function(){
+        if (this._data && this._data.length > 0)
+          this.object = this._data[0];
+      },
+
+      _fullName: function(obj){
+        return (obj && obj.title)? obj.title: '';
+      },
+      _shortName: function(obj){
+        return (obj && obj.title)? obj.title: '';
+      },
+      _makeFilter: function(uuid,library){
+        if (uuid) {
+          return {uuid:uuid};
+        } else if (library) {
+          return null; //figure out the filter to use here
+        } else return null;
+      }
+    });
+  </script>
+</dom-module>

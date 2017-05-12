@@ -1,0 +1,38 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`uvalib-model-file`
+data model for the files used for the Library site
+
+@demo demo/file.html
+-->
+
+<dom-module id="uvalib-model-file">
+  <template>
+    
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-model-file',
+      properties: {
+        /**
+         * The files
+         *
+         * @type {Object[]}
+         */
+        data: {
+          type: Array,
+          value: {},
+          notify: true
+        },
+        files: {
+          computed: 'computeFiles(data)',
+          notify: true
+        }
+      },
+
+    });
+  </script>
+</dom-module>

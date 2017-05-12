@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <title>uvalib-models demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../google-map/google-map.html">
+    <link rel="import" href="../../google-map/google-map-marker.html">
+
+    <link rel="import" href="../uvalib-model-library.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <template is="dom-bind">
+          <style>
+          google-map {
+            height: 600px;
+          }
+          </style>
+          <uvalib-model-library uuid="2fe107c6-ee48-40c5-9c57-c5a0a5939aac"
+             name="{{libName}}"></uvalib-model-library>
+          <img src="" alt="">
+          <h2>[[libName]]</h2>
+
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

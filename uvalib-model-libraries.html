@@ -2,8 +2,8 @@
 <link rel="import" href="../polymerfire/firebase.html">
 <link rel="import" href="../polymerfire/firebase-document.html">
 <link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+<link rel="import" href="../uvalib-helper-libs/lodash.html">
 <link rel="import" href="firebase-app.html">
-<link rel="import" href="../uvalib-helper-libs/uvalib-helper-behaviors.html">
 
 <!--
 `uvalib-model-libraries`
@@ -32,14 +32,22 @@ data model for the libraries used for the Library site
 
       properties: {
         /**
-         * The banners
+         * The banners as an Array of objects, see the uvalib-model-library element for finer grain usage
          *
          * @type {Object[]}
          */
         data: {
           type: Array,
-          computed: '_processList(_libdata)',
-          notify: true
+          computed: '_processList(_libdata, filter)',
+          notify: true,
+          readOnly: true
+        },
+        /**
+         * The filter to limit the data that is returned
+         */
+        filter: {
+          type: Object,
+          value: null,
         },
 
         _libdata: Array,
@@ -47,7 +55,11 @@ data model for the libraries used for the Library site
       },
 
       _processList: function(){
-        return this._libdata;
+        if (this.filter) {
+          return _.filter(this._libdata, this.filter);
+        } else {
+          return this._libdata;
+        }
       }
 
     });
