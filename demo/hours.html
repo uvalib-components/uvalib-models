@@ -19,22 +19,20 @@
 <div class="vertical-section-container centered">
   <demo-snippet>
     <template is="dom-bind">
-      <uvalib-model-hours filter='{"lid":"2090"}' data="{{locations}}"></uvalib-model-hours>
+      <uvalib-model-hours filter='{"lid":"2090"}' data="{{location}}"></uvalib-model-hours>
 
       <h2>Filtered locations</h2>
-      <template is="dom-repeat" items="{{locations}}">
-        <h3>{{item.name}}</h3>
+        <h3>{{location.name}}</h3>
         <dl>
-          <dt>Category</dt><dd>{{item.category}}</dd>
+          <dt>Category</dt><dd>{{location.category}}</dd>
           <dt>Weeks</dt>
           <dd><ul>
-            <template is="dom-repeat" items="{{item.weeks}}">
+            <template is="dom-repeat" items="{{location.weeks}}">
               <li>{{item.Sunday.date}}: {{item.Sunday.rendered}}</li>
             </template>
           </ul></dd>
         </dl>
       </template>
-    </template>
   </demo-snippet>
 </div>
 

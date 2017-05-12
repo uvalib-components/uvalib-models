@@ -15,7 +15,7 @@ data model for the hours used for the Library site
 <dom-module id="uvalib-model-hours">
   <template>
     <firebase-document id="query" app-name="uvalibapi"
-                       path="/hours"
+                       path="/hours/locations"
                        data="{{tmpData}}" zero-value="[]">
     </firebase-document>
     <app-indexeddb-mirror
