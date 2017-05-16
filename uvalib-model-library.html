@@ -55,7 +55,16 @@ data model for a Library used in the Library site
           notify: true
         },
         /**
-         * The full name of the Library including any doner title
+         * The full name of the Library including any donor title
+         */
+        fullName: {
+          type: String,
+          computed: "_fullName(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The name of the Library
          */
         name: {
           type: String,
@@ -71,6 +80,88 @@ data model for a Library used in the Library site
           computed: "_shortName(object)",
           readOnly: true
         },
+        /**
+         * The descriptive information about the library location.
+         */
+        description: {
+          type: String,
+          computed: "_description(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The name of the donor for this library.
+         */
+        donorName: {
+          type: String,
+          computed: "_donorName(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The descriptive information for this library donor.
+         */
+        donorBio: {
+          type: String,
+          computed: "_donorBio(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The library phone number.
+         */
+        phone: {
+          type: String,
+          computed: "_phone(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The library email address.
+         */
+        email: {
+          type: String,
+          computed: "_email(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * Specific opening/closing hours information appropriate to this library.
+         */
+        hoursInfo: {
+          type: String,
+          computed: "_hoursInfo(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The Springshare library location ID needed to access the location's hours information.
+         */
+        libcalId: {
+          type: String,
+          computed: "_libcalId(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * Social media links for the library.
+         */
+        socialMedia: {
+          type: Array,
+          computed: "_socialMedia(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The picture HTML markup for an image of the library.
+         */
+        imagePicTag: {
+          type: String,
+          computed: "_imagePicTag(object)",
+          readOnly: true,
+          notify: true
+        },
+
       },
 
       _dataChanged: function(){
@@ -79,11 +170,72 @@ data model for a Library used in the Library site
       },
 
       _fullName: function(obj){
+        var fullName='';
+        if (obj) {
+          fullName += (obj.donorTitle) ? obj.donorTitle+' ' : '';
+          fullName += (obj.title) ? obj.title: '';
+        }
+        return fullName;
+      },
+      _name: function(obj){
         return (obj && obj.title)? obj.title: '';
       },
       _shortName: function(obj){
-        return (obj && obj.title)? obj.title: '';
+        return (obj && obj.shortTitle)? obj.shortTitle: '';
       },
+      _donorName: function(obj){
+        return (obj && obj.donorTitle)? obj.donorTitle: '';
+      },
+      _donorBio: function(obj){
+        return (obj && obj.donorDescription)? obj.donorDescription: '';
+      },
+      _phone: function(obj){
+        return (obj && obj.phoneNumber)? obj.phoneNumber: '';
+      },
+      _email: function(obj){
+        // if no library email address exists, then use the generic library email address.
+        return (obj && obj.emailAddress)? obj.emailAddress: 'library@virginia.edu';
+      },
+      _hoursInfo: function(obj){
+        return (obj && obj.hoursInformation)? obj.hoursInformation: '';
+      },
+      _libcalId: function(obj){
+        return (obj && obj.libcalID)? obj.libcalID: '';
+      },
+      _socialMedia: function(obj){
+        var media = Array();
+        if (obj) {
+          if (obj.socialMedia) {
+            if (obj.socialMedia.constructor === Array) {
+              media = obj.socialMedia;
+            } else if (obj.socialMedia.constructor === Object) {
+              media[0] = obj.socialMedia;
+            }
+          }
+        }
+        return media;
+      },
+      _libraryURI: function(obj){
+        return (obj && obj.field_library_site_link)? obj.field_library_site_link: '';
+      },
+      _description: function(obj){
+        return (obj && obj.body)? obj.body: '';
+      },
+      _imagePicTag: function(obj){
+        var picture='';
+        if (obj && obj.mainImage) {
+          //@todo retrieve file information using the main image uuid value, e.g. 945a266c-47bc-43b5-89f5-f6f5a9274b2a
+
+          picture += '<picture>';
+          picture += '<img src="';
+          picture += '" alt="';
+          picture += (obj.mainImage.alt) ? obj.mainImage.alt : obj.title;
+          picture += '" style="width:auto;">'
+          picture += '</picture>';
+        }
+        return picture;
+      },
+
       _makeFilter: function(uuid,library){
         if (uuid) {
           return {uuid:uuid};
