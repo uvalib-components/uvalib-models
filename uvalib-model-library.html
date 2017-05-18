@@ -126,6 +126,15 @@ data model for a Library used in the Library site
           notify: true
         },
         /**
+         * The library email address string reversed for use with uvalib-liame component.
+         */
+        reverseEmail: {
+          type: String,
+          computed: "_reverseEmail(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
          * Specific opening/closing hours information appropriate to this library.
          */
         hoursInfo: {
@@ -160,7 +169,7 @@ data model for a Library used in the Library site
           computed: "_imagePicTag(object)",
           readOnly: true,
           notify: true
-        },
+        }
 
       },
 
@@ -230,10 +239,17 @@ data model for a Library used in the Library site
           picture += '<img src="';
           picture += '" alt="';
           picture += (obj.mainImage.alt) ? obj.mainImage.alt : obj.title;
-          picture += '" style="width:auto;">'
+          picture += '" style="width:auto;">';
           picture += '</picture>';
         }
         return picture;
+      },
+      _reverseEmail: function(obj) {
+        var remail = "";
+        if (obj && obj.emailAddress) {
+          remail = obj.emailAddress.split("").reverse().join("");
+        }
+        return remail;
       },
 
       _makeFilter: function(uuid,library){

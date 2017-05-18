@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+  <title>uvalib-models demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+  <link rel="import" href="../uvalib-model-weeks.html">
+
+  <style is="custom-style" include="demo-pages-shared-styles">
+  </style>
+</head>
+<body>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind">
+      <uvalib-model-weeks lid="2090" num-weeks="1" name="{{libName}}" category="{{type}}" description="{{info}}" contact="{{contact}}" data="{{weeks}}"></uvalib-model-weeks>
+
+      <h2>Selection by lid with 1 week</h2>
+      <h3>{{libName}}</h3>
+      <dl>
+        <dt>Description</dt><dd inner-h-t-m-l="{{info}}"></dd>
+        <dt>Contact</dt><dd inner-h-t-m-l="{{contact}}"></dd>
+        <dt>Category</dt><dd>{{type}}</dd>
+        <dt>Current Week</dt>
+        <dd><ul>
+          <template is="dom-repeat" items="{{weeks}}">
+            <li>Sunday {{item.Sunday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Monday {{item.Monday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Tuesday {{item.Tuesday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Wednesday {{item.Wednesday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Thursday {{item.Thursday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Friday {{item.Friday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Saturday {{item.Saturday.date}}: {{item.Sunday.rendered}}</li>
+          </template>
+        </ul></dd>
+      </dl>
+    </template>
+  </demo-snippet>
+</div>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind">
+      <uvalib-model-weeks library="Clemons" num-weeks="3" name="{{libName}}" category="{{type}}" description="{{info}}" contact="{{contact}}" data="{{weeks}}"></uvalib-model-weeks>
+
+      <h2>Selection by library with 3 weeks</h2>
+      <h3>{{libName}}</h3>
+      <dl>
+        <dt>Description</dt><dd inner-h-t-m-l="{{info}}"></dd>
+        <dt>Contact</dt><dd inner-h-t-m-l="{{contact}}"></dd>
+        <dt>Category</dt><dd>{{type}}</dd>
+        <dt>Current Week</dt>
+        <dd><ul>
+          <template is="dom-repeat" items="{{weeks}}">
+            <li>Sunday {{item.Sunday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Monday {{item.Monday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Tuesday {{item.Tuesday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Wednesday {{item.Wednesday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Thursday {{item.Thursday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Friday {{item.Friday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Saturday {{item.Saturday.date}}: {{item.Sunday.rendered}}</li>
+          </template>
+        </ul></dd>
+      </dl>
+    </template>
+  </demo-snippet>
+</div>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind">
+      <uvalib-model-weeks lid="2093" name="{{libName}}" category="{{type}}" description="{{info}}" contact="{{contact}}" data="{{weeks}}"></uvalib-model-weeks>
+
+      <h2>Selection by lid - all weeks</h2>
+      <h3>{{libName}}</h3>
+
+      <dl>
+        <dt>Description</dt><dd inner-h-t-m-l="{{info}}"></dd>
+        <dt>Contact</dt><dd inner-h-t-m-l="{{contact}}"></dd>
+        <dt>Category</dt><dd>{{type}}</dd>
+        <dt>Weeks</dt>
+        <dd><ul>
+          <template is="dom-repeat" items="{{weeks}}">
+            <li>Sunday {{item.Sunday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Monday {{item.Monday.date}}: {{item.Monday.rendered}}</li>
+            <li>Tuesday {{item.Tuesday.date}}: {{item.Tuesday.rendered}}</li>
+            <li>...</li>
+          </template>
+        </ul></dd>
+      </dl>
+
+    </template>
+  </demo-snippet>
+</div>
+
+</body>
+</html>

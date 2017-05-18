@@ -1,0 +1,92 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="uvalib-model-weeks.html">
+
+<!--
+`uvalib-model-library`
+data model for days in a week for a library location.
+
+@demo demo/library.html
+-->
+
+<dom-module id="uvalib-model-days">
+  <template>
+    <template is="dom-if" if="{{!object}}" restamp>
+      <uvalib-model-weeks lid="{{lid}}" library="{{library}}" num-weeks="1" data="{{_data}}"/>
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-model-days',
+
+      properties: {
+        /**
+         * The library that is being requested.  If the lid property is not specified and the library property is, then this is used to define which Library is being requested.
+         */
+        library: {
+          value: null,
+          type: String,
+          notify: true
+        },
+        /**
+         * The Springshare LibCal library identifier. If specified will define which Library is being requested (takes priority over the library property)
+         */
+        lid: {
+          value: null,
+          type: String,
+          notify: true
+        },
+        /**
+         * A week object as it is represented from the API.  If this property is set, the object provided is parsed and used, otherwise this is populated from the API request.
+         */
+        object: {
+          value: null,
+          type: Object,
+          notify: true
+        },
+        /**
+         * Up to 7 days of hours data for a library location.
+         */
+        data: {
+          type: Array,
+          computed: '_processList(_data, numWeeks)',
+          notify: true,
+          readOnly: true
+        },
+        _data: {
+          value: null,
+          type: Array,
+          observer: "_dataChanged"
+        },
+        _filter: {
+          type: Object,
+          computed: '_makeFilter(lid,library)'
+        },
+
+      _dataChanged: function(){
+        if (this._data && this._data.length > 0)
+          this.object = this._data[0];
+      },
+
+      _processList: function(){
+        if (this._data && this._data.length > 0 && this.numWeeks) {
+          return this._data[0].weeks.slice(0,this.numWeeks);
+        } else return null;
+      },
+
+      _makeFilter: function(lid,library){
+        if (lid) {
+          return {lid: Number(lid)};
+        } else if (library) {
+          if (library.includes("Library")) {
+            return {name:library};
+          } else {
+            var libName = library+" Library";
+            return {name:libName};
+          }
+        } else return null;
+      }
+    });
+  </script>
+</dom-module>
