@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+  <title>uvalib-models demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+  <link rel="import" href="../uvalib-model-days.html">
+
+  <style is="custom-style" include="demo-pages-shared-styles">
+  </style>
+</head>
+<body>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind">
+      <uvalib-model-days lid="2090" num-weeks="1" name="{{libName}}" category="{{type}}" description="{{info}}" contact="{{contact}}" data="{{days}}"></uvalib-model-days>
+
+      <h2>Selection by lid for today</h2>
+      <h3>{{libName}}</h3>
+      <dl>
+        <dt>Description</dt><dd inner-h-t-m-l="{{info}}"></dd>
+        <dt>Contact</dt><dd inner-h-t-m-l="{{contact}}"></dd>
+        <dt>Category</dt><dd>{{type}}</dd>
+        <dt>Today</dt>
+        <dd><ul>
+          <template is="dom-repeat" items="{{days}}">
+            <li>{{item.currentStatus}} {{item.rendered}}</li>
+            <template is="dom-if" if="{{item.isToday}}">
+              <ul>
+                <li>Today is {{item.date}}</li>
+              </ul>
+            </template>
+          </template>
+        </ul></dd>
+      </dl>
+    </template>
+  </demo-snippet>
+</div>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind">
+      <uvalib-model-days library="Clemons" start-week="2" name="{{libName}}" category="{{type}}" description="{{info}}" contact="{{contact}}" data="{{days}}"></uvalib-model-days>
+
+      <h2>Selection by library for next week</h2>
+      <h3>{{libName}}</h3>
+      <dl>
+        <dt>Description</dt><dd inner-h-t-m-l="{{info}}"></dd>
+        <dt>Contact</dt><dd inner-h-t-m-l="{{contact}}"></dd>
+        <dt>Category</dt><dd>{{type}}</dd>
+        <dt>Current Week</dt>
+        <dd><ul>
+          <template is="dom-repeat" items="{{days}}">
+            <li>Sunday {{item.Sunday.date}}: {{item.currentStatus}} {{item.Sunday.rendered}}</li>
+            <li>Monday {{item.Monday.date}}: {{item.currentStatus}} {{item.Sunday.rendered}}</li>
+            <li>Tuesday {{item.Tuesday.date}}: {{item.currentStatus}} {{item.Sunday.rendered}}</li>
+            <li>Wednesday {{item.Wednesday.date}}: {{item.currentStatus}} {{item.Sunday.rendered}}</li>
+            <li>Thursday {{item.Thursday.date}}: {{item.currentStatus}} {{item.Sunday.rendered}}</li>
+            <li>Friday {{item.Friday.date}}: {{item.currentStatus}} {{item.Sunday.rendered}}</li>
+            <li>Saturday {{item.Saturday.date}}: {{item.currentStatus}} {{item.Sunday.rendered}}</li>
+          </template>
+        </ul></dd>
+      </dl>
+    </template>
+  </demo-snippet>
+</div>
+
+</body>
+</html>

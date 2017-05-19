@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../uvalib-helper-libs/uvalib-helper-libs.html">
 <link rel="import" href="uvalib-model-weeks.html">
 
 <!--
@@ -11,7 +12,7 @@ data model for days in a week for a library location.
 <dom-module id="uvalib-model-days">
   <template>
     <template is="dom-if" if="{{!object}}" restamp>
-      <uvalib-model-weeks lid="{{lid}}" library="{{library}}" num-weeks="1" data="{{_data}}"/>
+      <uvalib-model-weeks lid="{{lid}}" library="{{library}}" start-week="{{weekNumber}}" num-weeks="1" name="{{_name}}" category="{{_category}}" description="{{_description}}" contact="{{_contact}}" data="{{_data}}"/>
     </template>
   </template>
 
@@ -35,6 +36,31 @@ data model for days in a week for a library location.
         lid: {
           value: null,
           type: String,
+          notify: true
+        },
+        /**
+         * Retrieves information for today's date.
+         */
+        today: {
+          value: false,
+          type: Boolean,
+          notify: true
+        },
+        /**
+         * Number of minutes before and after open hours for adding soon to Open/Closed status.
+         */
+        soonTime: {
+          value: 30,
+          type: Number,
+          notify: true
+        },
+        /**
+         * Which week to retrieve. An integer value between 1 and 52.
+         * Note: Week 1 represents the current week and the LibCal API provides data out to a max of 52 weeks.
+         */
+        weekNumber: {
+          value: 1,
+          type: Number,
           notify: true
         },
         /**
@@ -63,16 +89,132 @@ data model for days in a week for a library location.
           type: Object,
           computed: '_makeFilter(lid,library)'
         },
+        /**
+         * The Springshare name of the Library location.
+         */
+        name: {
+          type: String,
+          readOnly: true,
+          notify: true
+        },
+        _name: {
+          value: "",
+          type: String,
+          observer: "_nameChanged",
+        },
+        /**
+         * Springshare library location category.
+         */
+        category: {
+          type: String,
+          readOnly: true,
+          notify: true
+        },
+        _category: {
+          value: "",
+          type: String,
+          observer: "_categoryChanged",
+        },
+        /**
+         * Springshare library location description.
+         */
+        description: {
+          type: String,
+          readOnly: true,
+          notify: true
+        },
+        _description: {
+          value: "",
+          type: String,
+          observer: "_descriptionChanged",
+        },
+        /**
+         * Springshare library location contact information.
+         */
+        contact: {
+          type: String,
+          readOnly: true,
+          notify: true
+        },
+        _contact: {
+          value: "",
+          type: String,
+          observer: "_contactChanged",
+        },
+      },
 
       _dataChanged: function(){
         if (this._data && this._data.length > 0)
-          this.object = this._data[0];
+          this.object = this._data;
       },
 
       _processList: function(){
-        if (this._data && this._data.length > 0 && this.numWeeks) {
-          return this._data[0].weeks.slice(0,this.numWeeks);
+        if (this._data && this._data.length > 0) {
+          var today = moment().format("YYYY-MM-DD");
+          var day;
+          for (day in this._data) {
+            if (this._data[day].date == today) {
+              this._data[day]["isToday"] = true;
+              this._data[day]["currentStatus"] = this._currentStatus(this._data[day].times.hours[0].from,this._data[day].times.hours[0].to);
+            } else {
+              this._data[day]["isToday"] = false;
+              this._data[day]["currentStatus"] = "";
+            }
+          }
+          if (this.today) {
+            var _oneday = Array();
+            for (day in this._data) {
+              if (this._data[day].date == today) {
+                _oneday[day] = this._data[day];
+                break;
+              }
+            }
+            return _oneday;
+          } else {
+            return this._data;
+          }
         } else return null;
+      },
+
+      _nameChanged: function(){
+        if (this._name) {
+          this.name = this._name;
+        }
+      },
+      _categoryChanged: function() {
+        if (this._category) {
+          this.category = this._category;
+        }
+      },
+      _descriptionChanged: function() {
+        if (this._description) {
+          this.description = this._description;
+        }
+      },
+      _contactChanged: function() {
+        if (this._contact) {
+          this.contact = this._contact;
+        }
+      },
+
+      _currentStatus: function(openTime,closeTime) {
+        var status = '';
+        var opening = (openTime.includes(":")) ? moment(openTime, "h:mma") : moment(openTime, "ha");
+        var closing = (closeTime.includes(":")) ? moment(closeTime, "h:mma") : moment(closeTime, "ha");
+        if (opening.isBefore(moment()) && closing.isAfter(moment())) {
+          console.log('isbefore opening: ' + opening.isBefore(moment()));
+          console.log('isafter closing: ' + closing.isAfter(moment()));
+          status = "Open";
+        } else if (closing.isBefore(moment())) {
+          console.log('isbefore closing: ' + closing.isBefore(moment()));
+          status = "Closed";
+        } else if (opening.isAfter(moment()) && opening.subtract(this.soonTime, 'minutes').isBefore(moment())) {
+          console.log('isafter opening: ' + opening.isAfter(moment()));
+          status = "Opening soon";
+        } else if (closing.isAfter(moment()) && closing.subtract(this.soonTime, 'minutes').isBefore(moment())) {
+          console.log('isafter closing: ' + closing.isAfter(moment()));
+          status = "Closing soon";
+        }
       },
 
       _makeFilter: function(lid,library){
