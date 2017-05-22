@@ -12,7 +12,7 @@ data model for days in a week for a library location.
 <dom-module id="uvalib-model-days">
   <template>
     <template is="dom-if" if="{{!object}}" restamp>
-      <uvalib-model-weeks lid="{{lid}}" library="{{library}}" start-week="{{weekNumber}}" num-weeks="1" name="{{_name}}" category="{{_category}}" description="{{_description}}" contact="{{_contact}}" data="{{_data}}"/>
+      <uvalib-model-weeks lid="[[lid]]" library="[[library]]" start-week="{{weekNumber}}" num-weeks="1" name="{{_name}}" category="{{_category}}" description="{{_description}}" contact="{{_contact}}" data="{{_data}}"/>
     </template>
   </template>
 
@@ -64,19 +64,16 @@ data model for days in a week for a library location.
           notify: true
         },
         /**
-         * A week object as it is represented from the API.  If this property is set, the object provided is parsed and used, otherwise this is populated from the API request.
+         * A week object containing an array as it is represented from the API.  If this property is set, the object provided is parsed and used, otherwise this is populated from the API request.
          */
         object: {
           value: null,
           type: Object,
           notify: true
         },
-        /**
-         * Up to 7 days of hours data for a library location.
-         */
         data: {
           type: Array,
-          computed: '_processList(_data, weekNumber)',
+          computed: '_processList(object)',
           notify: true,
           readOnly: true
         },
@@ -89,11 +86,11 @@ data model for days in a week for a library location.
          * The Springshare name of the Library location.
          */
         name: {
+          value: "",
           type: String,
           notify: true
         },
         _name: {
-          value: "",
           type: String,
           observer: "_nameChanged",
         },
@@ -101,11 +98,11 @@ data model for days in a week for a library location.
          * Springshare library location category.
          */
         category: {
+          value: "",
           type: String,
           notify: true
         },
         _category: {
-          value: "",
           type: String,
           observer: "_categoryChanged",
         },
@@ -113,11 +110,11 @@ data model for days in a week for a library location.
          * Springshare library location description.
          */
         description: {
+          value: "",
           type: String,
           notify: true
         },
         _description: {
-          value: "",
           type: String,
           observer: "_descriptionChanged",
         },
@@ -125,48 +122,48 @@ data model for days in a week for a library location.
          * Springshare library location contact information.
          */
         contact: {
+          value: "",
           type: String,
           notify: true
         },
         _contact: {
-          value: "",
           type: String,
           observer: "_contactChanged",
         },
       },
 
       _dataChanged: function(){
-        console.log(this._data);
-        if (this._data && this._data.length > 0)
-          this.object = this._data[0];
+        if (this._data && this._data.length > 0) {
+          this.object = this._data;
+        }
       },
 
-      _processList: function(){
-        console.log("processList");
-        if (this._data && this._data.length > 0) {
+      _processList: function(obj){
+        if (obj) {
+          var data = obj;
           var today = moment().format("YYYY-MM-DD");
+          console.log("today is ", today);
           var day;
-          for (day in this._data) {
-            console.log(day);
-            if (this._data[day].date == today) {
-              this._data[day]["isToday"] = true;
-              this._data[day]["currentStatus"] = this._currentStatus(this._data[day].times.hours[0].from,this._data[day].times.hours[0].to);
+          for (day in data[0]) {
+            if (data[0][day].date == today) {
+              data[0][day]["isToday"] = true;
+              data[0][day]["currentStatus"] = this._currentStatus(data[0][day].times.hours[0].from,data[0][day].times.hours[0].to);
             } else {
-              this._data[day]["isToday"] = false;
-              this._data[day]["currentStatus"] = "";
+              data[0][day]["isToday"] = false;
+              data[0][day]["currentStatus"] = "";
             }
           }
           if (this.today) {
             var _oneday = Array();
-            for (day in this._data) {
-              if (this._data[day].date == today) {
-                _oneday[day] = this._data[day];
+            for (day in data[0]) {
+              if (data[0][day].date == today) {
+                _oneday[0] = data[0][day];
                 break;
               }
             }
             return _oneday;
           } else {
-            return this._data;
+            return data;
           }
         } else return null;
       },
@@ -197,20 +194,23 @@ data model for days in a week for a library location.
         var status = '';
         var opening = (openTime.includes(":")) ? moment(openTime, "h:mma") : moment(openTime, "ha");
         var closing = (closeTime.includes(":")) ? moment(closeTime, "h:mma") : moment(closeTime, "ha");
-        if (opening.isBefore(moment()) && closing.isAfter(moment())) {
-          console.log('isbefore opening: ' + opening.isBefore(moment()));
-          console.log('isafter closing: ' + closing.isAfter(moment()));
-          status = "Open";
-        } else if (closing.isBefore(moment())) {
-          console.log('isbefore closing: ' + closing.isBefore(moment()));
-          status = "Closed";
-        } else if (opening.isAfter(moment()) && opening.subtract(this.soonTime, 'minutes').isBefore(moment())) {
-          console.log('isafter opening: ' + opening.isAfter(moment()));
+        console.log("opening time: ", opening);
+        console.log("closing time: ", closing);
+        if (opening.isAfter(moment()) && opening.subtract(this.soonTime, 'minutes').isBefore(moment())) {
+          console.log('opening.isafter: ' + opening.isAfter(moment()));
           status = "Opening soon";
         } else if (closing.isAfter(moment()) && closing.subtract(this.soonTime, 'minutes').isBefore(moment())) {
-          console.log('isafter closing: ' + closing.isAfter(moment()));
+          console.log('closing.isafter: ' + closing.isAfter(moment()));
           status = "Closing soon";
+        } else if (opening.isBefore(moment()) && closing.isAfter(moment())) {
+          console.log('opening.isbefore: ' + opening.isBefore(moment()));
+          console.log('closing.isafter: ' + closing.isAfter(moment()));
+          status = "Open";
+        } else if (closing.isBefore(moment())) {
+          console.log('closing.isbefore: ' + closing.isBefore(moment()));
+          status = "Closed";
         }
+        return status;
       }
     });
   </script>

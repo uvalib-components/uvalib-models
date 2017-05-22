@@ -46,6 +46,34 @@
 <div class="vertical-section-container centered">
   <demo-snippet>
     <template is="dom-bind">
+      <uvalib-model-days library="Clemons" name="{{libName}}" category="{{type}}" description="{{info}}" contact="{{contact}}" data="{{days}}"></uvalib-model-days>
+
+      <h2>Selection using library for this week</h2>
+      <h3>{{libName}}</h3>
+      <dl>
+        <dt>Description</dt><dd inner-h-t-m-l="{{info}}"></dd>
+        <dt>Contact</dt><dd inner-h-t-m-l="{{contact}}"></dd>
+        <dt>Category</dt><dd>{{type}}</dd>
+        <dt>Current Week</dt>
+        <dd><ul>
+          <template is="dom-repeat" items="{{days}}">
+            <li>Sunday {{item.Sunday.date}}: {{item.Sunday.currentStatus}} {{item.Sunday.rendered}}</li>
+            <li>Monday {{item.Monday.date}}: {{item.Monday.currentStatus}} {{item.Monday.rendered}}</li>
+            <li>Tuesday {{item.Tuesday.date}}: {{item.Tuesday.currentStatus}} {{item.Tuesday.rendered}}</li>
+            <li>Wednesday {{item.Wednesday.date}}: {{item.Wednesday.currentStatus}} {{item.Wednesday.rendered}}</li>
+            <li>Thursday {{item.Thursday.date}}: {{item.Thursday.currentStatus}} {{item.Thursday.rendered}}</li>
+            <li>Friday {{item.Friday.date}}: {{item.Friday.currentStatus}} {{item.Friday.rendered}}</li>
+            <li>Saturday {{item.Saturday.date}}: {{item.Saturday.currentStatus}} {{item.Saturday.rendered}}</li>
+          </template>
+        </ul></dd>
+      </dl>
+    </template>
+  </demo-snippet>
+</div>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind">
       <uvalib-model-days library="Clemons" week-number="2" name="{{libName}}" category="{{type}}" description="{{info}}" contact="{{contact}}" data="{{days}}"></uvalib-model-days>
 
       <h2>Selection using library for next week</h2>
@@ -74,10 +102,10 @@
 <div class="vertical-section-container centered">
   <demo-snippet>
     <template is="dom-bind">
-      <uvalib-model-days object='{ "category" : "library", "color" : "#000000", "contact" : "<p>434.924.3021</p>", "desc" : "", "fn" : "", "lat" : "", "lid" : 2090, "long" : "", "name" : "Alderman Library", "url" : "", "weeks" : [ { "Friday" : { "date" : "2017-05-26", "rendered" : "8am - 6pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "6pm" } ], "status" : "open" } }, "Monday" : { "date" : "2017-05-22", "rendered" : "8am - 10pm", "times" : { "currently_open" : true, "hours" : [ { "from" : "8am", "to" : "10pm" } ], "status" : "open" } }, "Saturday" : { "date" : "2017-05-27", "rendered" : "1pm - 5pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "1pm", "to" : "5pm" } ], "status" : "open" } }, "Sunday" : { "date" : "2017-05-21", "rendered" : "8am - 5pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "5pm" } ], "status" : "open" } }, "Thursday" : { "date" : "2017-05-25", "rendered" : "8am - 10pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "10pm" } ], "status" : "open" } }, "Tuesday" : { "date" : "2017-05-23", "rendered" : "8am - 10pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "10pm" } ], "status" : "open" } }, "Wednesday" : { "date" : "2017-05-24", "rendered" : "8am - 10pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "10pm" } ], "status" : "open" } } }] }' name="{{libName}}" category="{{type}}" description="{{info}}" contact="{{contact}}" data="{{days}}"></uvalib-model-days>
+      <uvalib-model-days object='[{ "Friday" : { "date" : "2017-05-26", "rendered" : "8am - 6pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "6pm" } ], "status" : "open" } }, "Monday" : { "date" : "2017-05-22", "rendered" : "8am - 10pm", "times" : { "currently_open" : true, "hours" : [ { "from" : "8am", "to" : "10pm" } ], "status" : "open" } }, "Saturday" : { "date" : "2017-05-27", "rendered" : "1pm - 5pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "1pm", "to" : "5pm" } ], "status" : "open" } }, "Sunday" : { "date" : "2017-05-21", "rendered" : "8am - 5pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "5pm" } ], "status" : "open" } }, "Thursday" : { "date" : "2017-05-25", "rendered" : "8am - 10pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "10pm" } ], "status" : "open" } }, "Tuesday" : { "date" : "2017-05-23", "rendered" : "8am - 10pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "10pm" } ], "status" : "open" } }, "Wednesday" : { "date" : "2017-05-24", "rendered" : "8am - 10pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "10pm" } ], "status" : "open" } } }]' data="{{days}}"></uvalib-model-days>
 
       <h2>Object specified with week of data</h2>
-      <h3>{{libName}}</h3>
+      <h3>Alderman Hours</h3>
       <dl>
         <dt>Description</dt><dd inner-h-t-m-l="{{info}}"></dd>
         <dt>Contact</dt><dd inner-h-t-m-l="{{contact}}"></dd>
@@ -85,13 +113,13 @@
         <dt>Current Week</dt>
         <dd><ul>
           <template is="dom-repeat" items="{{days}}">
-            <li>Sunday {{item.Sunday.date}}: {{item.currentStatus}} {{item.Sunday.rendered}}</li>
-            <li>Monday {{item.Monday.date}}: {{item.currentStatus}} {{item.Sunday.rendered}}</li>
-            <li>Tuesday {{item.Tuesday.date}}: {{item.currentStatus}} {{item.Sunday.rendered}}</li>
-            <li>Wednesday {{item.Wednesday.date}}: {{item.currentStatus}} {{item.Sunday.rendered}}</li>
-            <li>Thursday {{item.Thursday.date}}: {{item.currentStatus}} {{item.Sunday.rendered}}</li>
-            <li>Friday {{item.Friday.date}}: {{item.currentStatus}} {{item.Sunday.rendered}}</li>
-            <li>Saturday {{item.Saturday.date}}: {{item.currentStatus}} {{item.Sunday.rendered}}</li>
+            <li>Sunday {{item.Sunday.date}}: <template is="dom-if" if="{{item.Sunday.isToday}}"><strong>{{item.Sunday.currentStatus}}</strong></template> {{item.Sunday.rendered}}</li>
+            <li>Monday {{item.Monday.date}}: <template is="dom-if" if="{{item.Monday.isToday}}"><strong>{{item.Monday.currentStatus}}</strong></template> {{item.Monday.rendered}}</li>
+            <li>Tuesday {{item.Tuesday.date}}: <template is="dom-if" if="{{item.Tuesday.isToday}}"><strong>{{item.Tuesday.currentStatus}}</strong></template> {{item.Tuesday.rendered}}</li>
+            <li>Wednesday {{item.Wednesday.date}}: <template is="dom-if" if="{{item.Wednesday.isToday}}"><strong>{{item.Wednesday.currentStatus}}</strong></template> {{item.Wednesday.rendered}}</li>
+            <li>Thursday {{item.Thursday.date}}: <template is="dom-if" if="{{item.Thursday.isToday}}"><strong>{{item.Thursday.currentStatus}}</strong></template> {{item.Thursday.rendered}}</li>
+            <li>Friday {{item.Friday.date}}: <template is="dom-if" if="{{item.Friday.isToday}}"><strong>{{item.Friday.currentStatus}}</strong></template> {{item.Friday.rendered}}</li>
+            <li>Saturday {{item.Saturday.date}}: <template is="dom-if" if="{{item.Saturday.isToday}}"><strong>{{item.Saturday.currentStatus}}</strong></template> {{item.Saturday.rendered}}</li>
           </template>
         </ul></dd>
       </dl>
