@@ -56,7 +56,14 @@ data model for the hours used for the Library site
         if (this.filter) {
           return _.filter(this._hourdata, this.filter);
         } else {
-          return this._hourdata;
+          if (Array.isArray(this._hourdata)) {
+            return this._hourdata;
+          } else {
+            var data = _.map(this._hourdata, function(value, index) {
+              return [value];
+            });
+            return data;
+          }
         }
       },
 

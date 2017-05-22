@@ -138,7 +138,7 @@ data model for a range of weeks hours for a library location.
 
       _processList: function(){
         if (this._data && this._data.length > 0 && this.startWeek && this.numWeeks) {
-          return this._data[0].weeks.slice((this.startWeek-1),this.numWeeks);
+          return this._data[0].weeks.slice((this.startWeek-1),this.startWeek+this.numWeeks-1);
         } else return null;
       },
 
