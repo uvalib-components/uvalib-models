@@ -130,7 +130,7 @@ data model for a Library used in the Library site
          */
         reverseEmail: {
           type: String,
-          computed: "_reverseEmail(object)",
+          computed: "_reverseEmail(email)",
           readOnly: true,
           notify: true
         },
@@ -162,11 +162,11 @@ data model for a Library used in the Library site
           notify: true
         },
         /**
-         * The picture HTML markup for an image of the library.
+         * The library location's type. Should be library or lab.
          */
-        imagePicTag: {
+        locationType: {
           type: String,
-          computed: "_imagePicTag(object)",
+          computed: "_locationType(object)",
           readOnly: true,
           notify: true
         }
@@ -224,30 +224,25 @@ data model for a Library used in the Library site
         }
         return media;
       },
+      _locationType: function(obj){
+        var loc="";
+        if (obj) {
+          if (obj.placeType) {
+            loc = obj.placeType.name;
+          }
+        }
+        return loc;
+      },
       _libraryURI: function(obj){
         return (obj && obj.field_library_site_link)? obj.field_library_site_link: '';
       },
       _description: function(obj){
         return (obj && obj.body)? obj.body: '';
       },
-      _imagePicTag: function(obj){
-        var picture='';
-        if (obj && obj.mainImage) {
-          //@todo retrieve file information using the main image uuid value, e.g. 945a266c-47bc-43b5-89f5-f6f5a9274b2a
-
-          picture += '<picture>';
-          picture += '<img src="';
-          picture += '" alt="';
-          picture += (obj.mainImage.alt) ? obj.mainImage.alt : obj.title;
-          picture += '" style="width:auto;">';
-          picture += '</picture>';
-        }
-        return picture;
-      },
-      _reverseEmail: function(obj) {
+      _reverseEmail: function(str) {
         var remail = "";
-        if (obj && obj.emailAddress) {
-          remail = obj.emailAddress.split("").reverse().join("");
+        if (str.length > 0) {
+          remail = str.split("").reverse().join("");
         }
         return remail;
       },
