@@ -24,7 +24,7 @@
         <template is="dom-bind">
           <uvalib-model-library uuid="2fe107c6-ee48-40c5-9c57-c5a0a5939aac"
              name="{{libName}}" description="{{info}}" donor-bio="{{donorInfo}}" full-name="{{donorTitle}}"
-             email="{{email}}" reverse-email="{{remail}}" phone="{{phone}}" social-media="{{socialMedia}}"
+             email="{{email}}" rid="{{rid}}" phone="{{phone}}" social-media="{{socialMedia}}"
              location-type="{{locationType}}">
           </uvalib-model-library>
           <span class="donor-title donor-description" data-content$="[[donorInfo]]" data-original-title$="[[donorTitle]]"></span>
@@ -44,7 +44,7 @@
               <div class="vitals-section">
                 <h4>Contact</h4>
                 <span class="phone">Phone:&nbsp;&nbsp;[[phone]]</span>
-                <span class="contact">Email:&nbsp;&nbsp;<!-- uvalib-liame rid="{{remail}}" -->[[email]] [[remail]]</uvalib-liame></span>
+                <span class="contact">Email:&nbsp;&nbsp;<uvalib-liame rid="[[rid]]"></uvalib-liame></span>
                 <template is="dom-repeat" items="[[socialMedia]]">
                   <span class="contact social-link"><a class="{{item.title}}-link" href="{{item.uri}}">{{item.title}}</a></span>
                 </template>
@@ -60,7 +60,7 @@
         <template is="dom-bind">
           <uvalib-model-library uuid="1dc3d8f6-4112-496f-9041-2c6156e80ae1"
               name="{{libName}}" description="{{info}}" donor-bio="{{donorInfo}}" full-name="{{donorTitle}}"
-              email="{{email}}" reverse-email="{{remail}}" phone="{{phone}}" social-media="{{socialMedia}}"
+              email="{{email}}" rid="{{rid}}" phone="{{phone}}" social-media="{{socialMedia}}"
               location-type="{{locationType}}">
           </uvalib-model-library>
           <span class="donor-title donor-description" data-content$="[[donorInfo]]" data-original-title$="[[donorTitle]]"></span>
@@ -79,7 +79,7 @@
               <div class="vitals-section">
                 <h4>Contact</h4>
                 <span class="phone">Phone:&nbsp;&nbsp;[[phone]]</span>
-                <span class="contact">Email:&nbsp;&nbsp;<uvalib-liame rid="[[remail]]">[[email]]</uvalib-liame></span>
+                <span class="contact">Email:&nbsp;&nbsp;<uvalib-liame rid="[[rid]]"></uvalib-liame></span>
                 <template is="dom-repeat" items="[[socialMedia]]">
                   <span class="contact social-link"><a class="{{item.title}}-link" href="{{item.uri}}">{{item.title}}</a></span>
                 </template>

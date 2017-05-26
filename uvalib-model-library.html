@@ -128,9 +128,9 @@ data model for a Library used in the Library site
         /**
          * The library email address string reversed for use with uvalib-liame component.
          */
-        reverseEmail: {
+        rid: {
           type: String,
-          computed: "_reverseEmail(email)",
+          computed: "_reverseEmail(object)",
           readOnly: true,
           notify: true
         },
@@ -203,7 +203,14 @@ data model for a Library used in the Library site
       },
       _email: function(obj){
         // if no library email address exists, then use the generic library email address.
-        return (obj && obj.emailAddress)? obj.emailAddress: 'library@virginia.edu';
+        return (obj && obj.emailAddress)? obj.emailAddress: "library@virginia.edu";
+      },
+      _reverseEmail: function(obj) {
+        var rid = "";
+        var eid = this._email(obj);
+        // drop domain and then reverse string
+        rid = eid.replace(/@virginia.edu/i,"").split("").reverse().join("");
+        return rid;
       },
       _hoursInfo: function(obj){
         return (obj && obj.hoursInformation)? obj.hoursInformation: '';
@@ -238,13 +245,6 @@ data model for a Library used in the Library site
       },
       _description: function(obj){
         return (obj && obj.body)? obj.body: '';
-      },
-      _reverseEmail: function(str) {
-        var remail = "";
-        if (str.length > 0) {
-          remail = str.split("").reverse().join("");
-        }
-        return remail;
       },
 
       _makeFilter: function(uuid,library){

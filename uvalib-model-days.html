@@ -140,7 +140,12 @@ data model for days in a week for a library location.
 
       _processList: function(obj){
         if (obj) {
-          var data = obj;
+          var data;
+          if (Array.isArray(obj)) {
+            data = obj;
+          } else {
+            data[0] = obj;
+          }
           var today = moment().format("YYYY-MM-DD");
           console.log("today is ", today);
           var day;
