@@ -169,8 +169,16 @@ data model for a Library used in the Library site
           computed: "_locationType(object)",
           readOnly: true,
           notify: true
+        },
+        /**
+         * Slug used for building out URL or anchor reference to specific library location.
+         */
+        slug: {
+          type: String,
+          computed: "_slug(object)",
+          readOnly: true,
+          notify: true
         }
-
       },
 
       _dataChanged: function(){
@@ -239,6 +247,9 @@ data model for a Library used in the Library site
           }
         }
         return loc;
+      },
+      _slug: function(obj){
+        return (obj && obj.slug)? obj.slug: '';
       },
       _libraryURI: function(obj){
         return (obj && obj.field_library_site_link)? obj.field_library_site_link: '';
