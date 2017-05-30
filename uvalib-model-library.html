@@ -262,7 +262,7 @@ data model for a Library used in the Library site
         if (uuid) {
           return {uuid:uuid};
         } else if (library) {
-          return null; //figure out the filter to use here
+          return {title: library};
         } else return null;
       }
     });
