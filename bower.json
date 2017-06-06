@@ -30,6 +30,8 @@
     "uvalib-skip-nav": "master",
     "uvalib-theme": "master",
     "uvalib-footer": "master",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "iron-icons": "^1.2.1",
+    "app-storage": "^0.9.8"
   }
 }

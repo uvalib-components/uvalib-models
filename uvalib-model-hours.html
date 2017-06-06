@@ -6,39 +6,37 @@
 <link rel="import" href="firebase-app.html">
 
 <!--
-`uvalib-model-libraries`
-data model for the libraries used for the Library site
+`uvalib-model-hours`
+data model for the hours used for the Library site
 
-@demo demo/libraries.html
+@demo demo/hours.html
 -->
 
-<dom-module id="uvalib-model-libraries">
+<dom-module id="uvalib-model-hours">
   <template>
     <firebase-document id="query" app-name="uvalibapi"
-      path="/libraries"
-      data="{{tmpData}}" zero-value="[]">
+                       path="/hours/locations"
+                       data="{{tmpData}}" zero-value="[]">
     </firebase-document>
     <app-indexeddb-mirror
-        key="libraries"
+        key="hours"
         data="{{tmpData}}"
-        persisted-data="{{_libdata}}">
+        persisted-data="{{_hourdata}}">
     </app-indexeddb-mirror>
   </template>
 
   <script>
     Polymer({
 
-      is: 'uvalib-model-libraries',
+      is: 'uvalib-model-hours',
 
       properties: {
         /**
-         * The data as an Array of objects, see the uvalib-model-library element for finer grain usage
-         *
          * @type {Object[]}
          */
         data: {
           type: Array,
-          computed: '_processList(_libdata, filter)',
+          computed: '_processList(_hourdata, filter)',
           notify: true,
           readOnly: true
         },
@@ -50,17 +48,24 @@ data model for the libraries used for the Library site
           value: null,
         },
 
-        _libdata: Array,
+        _hourdata: Array,
 
       },
 
       _processList: function(){
         if (this.filter) {
-          return _.filter(this._libdata, this.filter);
+          return _.filter(this._hourdata, this.filter);
         } else {
-          return this._libdata;
+          if (Array.isArray(this._hourdata)) {
+            return this._hourdata;
+          } else {
+            var data = _.map(this._hourdata, function(value, index) {
+              return [value];
+            });
+            return data;
+          }
         }
-      }
+      },
 
     });
   </script>
