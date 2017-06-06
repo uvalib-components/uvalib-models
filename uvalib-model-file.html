@@ -1,4 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymerfire/firebase-document.html">
+<link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+<link rel="import" href="firebase-app.html">
 
 <!--
 `uvalib-model-file`
@@ -9,7 +12,15 @@ data model for the files used for the Library site
 
 <dom-module id="uvalib-model-file">
   <template>
-    
+    <template is="dom-if" if="[[uuid]]">
+      <firebase-document id="query" app-name="uvalibapi"
+        path="[[_dbPath(uuid)]]"
+        data="{{tmpData}}"></firebase-document>
+      <app-indexeddb-mirror
+          key="file-[[uuid]]"
+          data="[[tmpData]]"
+          persisted-data="{{data}}"></app-indexeddb-mirror>
+    </template>
   </template>
 
   <script>
@@ -17,22 +28,32 @@ data model for the files used for the Library site
 
       is: 'uvalib-model-file',
       properties: {
+        uuid: {
+          type: String,
+          value: null
+        },
         /**
-         * The files
+         * The file
          *
-         * @type {Object[]}
+         * @type Object
          */
         data: {
-          type: Array,
-          value: {},
+          type: Object,
+          value: null,
           notify: true
         },
-        files: {
-          computed: 'computeFiles(data)',
+        rawData: {
+          type: String,
+          computed: '_toString(data)',
           notify: true
         }
       },
-
+      _toString: function(data){
+        return JSON.stringify(data);
+      },
+      _dbPath: function(uuid){
+        return '/files/'+uuid;
+      }
     });
   </script>
 </dom-module>
