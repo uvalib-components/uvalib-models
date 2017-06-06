@@ -30,7 +30,7 @@ data model for a range of weeks hours for a library location.
           notify: true
         },
         /**
-         * The Springshare LibCal library identifier. If specified will define which Library is being requested (takes priority over the library property)
+         * The LibCal Hours library identifier. If specified will define which Library is being requested (takes priority over the library property)
          */
         lid: {
           value: null,
@@ -46,7 +46,7 @@ data model for a range of weeks hours for a library location.
           notify: true
         },
         /**
-         * The number of week to retrieve, if specified. An integer value between 1 and 52.
+         * The number of weeks to retrieve, if specified. An integer value between 1 and 52.
          */
         numWeeks: {
           value: 52,
@@ -54,7 +54,7 @@ data model for a range of weeks hours for a library location.
           notify: true
         },
         /**
-         * The location object as it is represented from the API.  If this property is set, the object provided is parsed and used, otherwise this is populated from the API request.
+         * The location object as it is represented from the API.  If this property is set, the object provided is parsed and used. Otherwise this is populated from the API request.
          */
         object: {
           value: null,
@@ -62,11 +62,11 @@ data model for a range of weeks hours for a library location.
           notify: true
         },
         /**
-         * Up to 52 weeks of hours data for a library location.
+         * Up to 52 weeks of hours data for a library location where each element represents a week of hours.
          */
         data: {
           type: Array,
-          computed: '_processList(object, numWeeks)',
+          computed: '_processList(object, startWeek, numWeeks)',
           notify: true,
           readOnly: true
         },
@@ -80,38 +80,11 @@ data model for a range of weeks hours for a library location.
           computed: '_makeFilter(lid,library)'
         },
         /**
-         * The Springshare name of the Library location.
+         * The name of the Library location.
          */
         name: {
           type: String,
           computed: "_name(object)",
-          readOnly: true,
-          notify: true
-        },
-        /**
-         * Springshare library location category.
-         */
-        category: {
-          type: String,
-          computed: "_category(object)",
-          readOnly: true,
-          notify: true
-        },
-        /**
-         * Springshare library location description.
-         */
-        description: {
-          type: String,
-          computed: "_description(object)",
-          readOnly: true,
-          notify: true
-        },
-        /**
-         * Springshare library location contact information.
-         */
-        contact: {
-          type: String,
-          computed: "_contact(object)",
           readOnly: true,
           notify: true
         }
@@ -126,15 +99,6 @@ data model for a range of weeks hours for a library location.
       _name: function(obj){
         return (obj && obj.name)? obj.name: '';
       },
-      _category: function(obj){
-        return (obj && obj.category)? obj.category: '';
-      },
-      _description: function(obj){
-        return (obj && obj.desc)? obj.desc: '';
-      },
-      _contact: function(obj){
-        return (obj && obj.contact)? obj.contact: '';
-      },
 
       _processList: function(){
         if (this.object && this.startWeek && this.numWeeks) {
@@ -146,7 +110,7 @@ data model for a range of weeks hours for a library location.
         if (lid) {
           return {lid: Number(lid)};
         } else if (library) {
-          if (library.includes("Library")) {
+          if (library.includes("Library") || library.includes("Lab")) {
             return {name:library};
           } else {
             var libName = library+" Library";

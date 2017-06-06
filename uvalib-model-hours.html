@@ -7,7 +7,7 @@
 
 <!--
 `uvalib-model-hours`
-data model for the hours used for the Library site
+data model for the hours used for the Library site; current data source for this content is Springshare LibCal Hours.
 
 @demo demo/hours.html
 -->
@@ -32,6 +32,7 @@ data model for the hours used for the Library site
 
       properties: {
         /**
+         * An array of JSON objects where each entry represents information about one of the locations.
          * @type {Object[]}
          */
         data: {
@@ -41,7 +42,7 @@ data model for the hours used for the Library site
           readOnly: true
         },
         /**
-         * The filter to limit the data that is returned
+         * The filter to limit the data returned to one or more locations.
          */
         filter: {
           type: Object,

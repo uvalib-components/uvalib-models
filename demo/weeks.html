@@ -19,14 +19,11 @@
 <div class="vertical-section-container centered">
   <demo-snippet>
     <template is="dom-bind">
-      <uvalib-model-weeks lid="2090" num-weeks="1" name="{{libName}}" category="{{type}}" description="{{info}}" contact="{{contact}}" data="{{weeks}}"></uvalib-model-weeks>
+      <uvalib-model-weeks lid="2090" num-weeks="1" name="{{libName}}" data="{{weeks}}"></uvalib-model-weeks>
 
       <h2>Selection by lid with 1 week</h2>
       <h3>{{libName}}</h3>
       <dl>
-        <dt>Description</dt><dd inner-h-t-m-l="{{info}}"></dd>
-        <dt>Contact</dt><dd inner-h-t-m-l="{{contact}}"></dd>
-        <dt>Category</dt><dd>{{type}}</dd>
         <dt>Current Week</dt>
         <dd><ul>
           <template is="dom-repeat" items="{{weeks}}">
@@ -47,14 +44,11 @@
 <div class="vertical-section-container centered">
   <demo-snippet>
     <template is="dom-bind">
-      <uvalib-model-weeks library="Clemons" start-week="2" num-weeks="3" name="{{libName}}" category="{{type}}" description="{{info}}" contact="{{contact}}" data="{{weeks}}"></uvalib-model-weeks>
+      <uvalib-model-weeks library="Clemons" start-week="2" num-weeks="3" name="{{libName}}" data="{{weeks}}"></uvalib-model-weeks>
 
       <h2>Selection by library with 3 weeks beginning with second week</h2>
       <h3>{{libName}}</h3>
       <dl>
-        <dt>Description</dt><dd inner-h-t-m-l="{{info}}"></dd>
-        <dt>Contact</dt><dd inner-h-t-m-l="{{contact}}"></dd>
-        <dt>Category</dt><dd>{{type}}</dd>
         <dt>Current Week</dt>
         <dd><ul>
           <template is="dom-repeat" items="{{weeks}}">
@@ -75,15 +69,12 @@
 <div class="vertical-section-container centered">
   <demo-snippet>
     <template is="dom-bind">
-      <uvalib-model-weeks lid="2093" name="{{libName}}" category="{{type}}" description="{{info}}" contact="{{contact}}" data="{{weeks}}"></uvalib-model-weeks>
+      <uvalib-model-weeks lid="2093" name="{{libName}}" data="{{weeks}}"></uvalib-model-weeks>
 
       <h2>Selection by lid - all weeks</h2>
       <h3>{{libName}}</h3>
 
       <dl>
-        <dt>Description</dt><dd inner-h-t-m-l="{{info}}"></dd>
-        <dt>Contact</dt><dd inner-h-t-m-l="{{contact}}"></dd>
-        <dt>Category</dt><dd>{{type}}</dd>
         <dt>Weeks</dt>
         <dd><ul>
           <template is="dom-repeat" items="{{weeks}}">
@@ -108,9 +99,6 @@
       <h3>{{libName}}</h3>
 
       <dl>
-        <dt>Description</dt><dd inner-h-t-m-l="{{info}}"></dd>
-        <dt>Contact</dt><dd inner-h-t-m-l="{{contact}}"></dd>
-        <dt>Category</dt><dd>{{type}}</dd>
         <dt>Weeks</dt>
         <dd><ul>
           <template is="dom-repeat" items="{{weeks}}">
