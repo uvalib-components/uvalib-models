@@ -267,10 +267,10 @@ data model for a Library used in the Library site
         return loc;
       },
       _imageUuid: function(obj){
-        return (obj && obj.mainImage.uuid)? obj.mainImage.uuid: '';
+        return (obj && obj.mainImage && obj.mainImage.uuid)? obj.mainImage.uuid: '';
       },
       _imageAltText: function(obj){
-        return (obj && obj.mainImage.alt)? obj.mainImage.alt: '';
+        return (obj && obj.mainImage && obj.mainImage.alt)? obj.mainImage.alt: '';
       },
       _slug: function(obj){
         return (obj && obj.slug)? obj.slug: '';
