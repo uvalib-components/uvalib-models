@@ -58,7 +58,7 @@ data model for the libraries used for the Library site
         if (this.filter) {
           return _.filter(this._libdata, this.filter);
         } else {
-          return this._libdata;
+          return _.filter(this._libdata);
         }
       }
 
