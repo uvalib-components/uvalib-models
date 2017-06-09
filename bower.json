@@ -6,7 +6,8 @@
     "uvalib-elements": "uvalib-components/uvalib-elements#latest"
   },
   "devDependencies": {
-    "google-map": "GoogleWebComponents/google-map#^1.2.0"
+    "google-map": "GoogleWebComponents/google-map#^1.2.0",
+    "uvalib-images": "uvalib-components/uvalib-images"
   },
   "resolutions": {
     "polymer": "^1.8.1",

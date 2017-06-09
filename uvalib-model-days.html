@@ -69,17 +69,15 @@ data model for days in a week for a library location.
         object: {
           value: null,
           type: Array,
-          notify: true,
-          observer: "_changedData"
-        },
+          notify: true        },
         /**
-         * A week of hours transformed to an array with 7 days (or 1 if today specified) of the following format:
-         *   data["YYYY-MM-DD"] = {dayOfWeek: "Monday/Tuesday/...", hours: "8am-10pm", currentStatus: "Open/Closed/Closing Soon/..."}
+         * A week of hours transformed to an array with 7 (or 1 if today specified) entries of the following format:
+         *   data[i] = {ymdDate: "YYYY-MM-DD", mdDate: "Mon D", month: "Month name", dayOfWeek: "Monday/Tuesday/...", hours: "8am-10pm", currentStatus: "Open/Closed/Closing Soon/..."}
          */
         data: {
           value: null,
           type: Array,
-//          computed: '_processList(object)',
+          computed: '_processList(object)',
           notify: true
         },
         _data: {
@@ -127,9 +125,6 @@ data model for days in a week for a library location.
         }
       },
 
-      _changedData: function() {
-        this.set('data',this._processList(this.object));
-      },
       /**
        * Parse the object data to create the preferred data object for use in the UI.
        * @param obj
@@ -141,37 +136,33 @@ data model for days in a week for a library location.
           var oneweek = Array();
           var data = Array();
           if (Array.isArray(obj)) {
-            console.log("obj is array");
-            console.log(obj);
             data = obj;
           } else {
-            console.log("obj is not array");
             data[0] = obj;
-            console.log(data);
           }
           var today = moment().format("YYYY-MM-DD");
-          var day;
+          var day, i=0;
           for (day in data[0]) {
-            var theDate = data[0][day].date;
-            var info = {dayofWeek: day, hours: data[0][day].rendered, currentStatus: "", isToday: false};
+            var info = {ymdDate: data[0][day].date, mdDate: "", month: "", dayOfWeek: day, hours: data[0][day].rendered, currentStatus: "", isToday: false};
+            info.mdDate = moment(info.ymdDate).format("MMM D");
+            info.month = moment(info.ymdDate).format("MMMM");
             if (data[0][day].date == today) {
               info.isToday = true;
               info.currentStatus = this._currentStatus(data[0][day].times.hours[0].from,data[0][day].times.hours[0].to);
             }
-            oneweek[theDate.toString()] = info;
+            i = moment(info.ymdDate).format("e");
+            oneweek[i] = info;
           }
           if (this.today) {
             var oneday = Array();
-            for (day in oneweek) {
-              if (day == today) {
-                oneday[day] = oneweek[day];
+            for (var i=0; i < oneweek.length; i++) {
+              if (oneweek[i].ymdDate == today) {
+                oneday[0] = oneweek[i];
                 break;
               }
             }
-            console.log(oneday);
             return oneday;
           } else {
-            console.log(oneweek);
             return oneweek;
           }
         } else return null;

@@ -11,6 +11,7 @@
     <link rel="import" href="../../google-map/google-map.html">
     <link rel="import" href="../../google-map/google-map-marker.html">
 
+    <link rel="import" href="../../uvalib-images/uvalib-image.html">
     <link rel="import" href="../../uvalib-liame/uvalib-liame.html">
     <link rel="import" href="../uvalib-model-library.html">
 
@@ -25,13 +26,13 @@
           <uvalib-model-library library="Alderman Library"
              name="{{libName}}" description="{{info}}" donor-bio="{{donorInfo}}" full-name="{{donorTitle}}"
              email="{{email}}" rid="{{rid}}" phone="{{phone}}" social-media="{{socialMedia}}"
-             location-type="{{locationType}}" slug="{{slug}}">
+             location-type="{{locationType}}" slug="{{slug}}" img-id="{{imgId}}" img-alt="{{imgAlt}}">
           </uvalib-model-library>
           <span class="donor-title donor-description" data-content$="[[donorInfo]]" data-original-title$="[[donorTitle]]"></span>
           <h2 class="title">[[libName]]</h2>
           <div class="info">
             <div class="description">
-              <div class="picture"><img width="" height="" src="" alt="" class=""></div>
+              <div class="picture"><uvalib-image uuid="[[imgId]]" alt="[[imgAlt]]"></uvalib-image></div>
               <p>[[info]]</p>
               <p>Type: [[locationType]]</p>
             </div>
@@ -61,13 +62,13 @@
           <uvalib-model-library uuid="1dc3d8f6-4112-496f-9041-2c6156e80ae1"
               name="{{libName}}" description="{{info}}" donor-bio="{{donorInfo}}" full-name="{{donorTitle}}"
               email="{{email}}" rid="{{rid}}" phone="{{phone}}" social-media="{{socialMedia}}"
-              location-type="{{locationType}}" slug="{{slug}}">
+              location-type="{{locationType}}" slug="{{slug}}" img-id="{{imgId}}" img-alt="{{imgAlt}}">
           </uvalib-model-library>
           <span class="donor-title donor-description" data-content$="[[donorInfo]]" data-original-title$="[[donorTitle]]"></span>
           <h2 class="title">[[libName]]</h2>
           <div class="info">
             <div class="description">
-              <div class="picture"><img width="" height="" src="" alt="" class=""></div>
+              <div class="picture"><uvalib-image uuid="[[imgId]]" alt="[[imgAlt]]"></uvalib-image></div>
               <p>[[info]]</p>
             </div>
             <div class="vitals">

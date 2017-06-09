@@ -171,6 +171,24 @@ data model for a Library used in the Library site
           notify: true
         },
         /**
+         * The uuid for the main image of the library location.
+         */
+        imgId: {
+          type: String,
+          computed: "_imageUuid(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The alternative text to be used for the main image of the library location.
+         */
+        imgAlt: {
+          type: String,
+          computed: "_imageAltText(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
          * Slug used for building out URL or anchor reference to specific library location.
          */
         slug: {
@@ -247,6 +265,12 @@ data model for a Library used in the Library site
           }
         }
         return loc;
+      },
+      _imageUuid: function(obj){
+        return (obj && obj.mainImage && obj.mainImage.uuid)? obj.mainImage.uuid: '';
+      },
+      _imageAltText: function(obj){
+        return (obj && obj.mainImage && obj.mainImage.alt)? obj.mainImage.alt: '';
       },
       _slug: function(obj){
         return (obj && obj.slug)? obj.slug: '';

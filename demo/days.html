@@ -19,7 +19,7 @@
 
 <div class="vertical-section-container centered">
   <demo-snippet>
-    <template is="dom-bind" id="test">
+    <template is="dom-bind" id="first">
       <uvalib-model-days lid="2090" today="true" name="{{libName}}" data="{{days}}"></uvalib-model-days>
 
       <h2>Selection using lid for today</h2>
@@ -28,11 +28,10 @@
         <dt>Today</dt>
         <dd><ul>
           <template is="dom-repeat" items="{{days}}">
-            <h1>foo bar</h1>
             <li>{{item.currentStatus}} {{item.hours}}</li>
             <template is="dom-if" if="{{item.isToday}}">
               <ul>
-                <li>Today is {{index}}</li>
+                <li>Today is {{item.ymdDate}}</li>
               </ul>
             </template>
           </template>
@@ -53,11 +52,11 @@
         <dt>Today</dt>
         <dd><ul>
           <template is="dom-repeat" items="{{days}}">
-            <li>{{index}}</li>
             <li>{{item.currentStatus}} {{item.hours}}</li>
             <template is="dom-if" if="{{item.isToday}}">
               <ul>
-                <li>Today is {{index}}</li>
+                <li>Today is {{item.mdDate}}</li>
+                <li>Month is {{item.month}}</li>
               </ul>
             </template>
           </template>
@@ -78,13 +77,7 @@
         <dt>Current Week</dt>
         <dd><ul>
           <template is="dom-repeat" items="{{days}}">
-            <li>Sunday {{item.Sunday.date}}: {{item.Sunday.currentStatus}} {{item.Sunday.rendered}}</li>
-            <li>Monday {{item.Monday.date}}: {{item.Monday.currentStatus}} {{item.Monday.rendered}}</li>
-            <li>Tuesday {{item.Tuesday.date}}: {{item.Tuesday.currentStatus}} {{item.Tuesday.rendered}}</li>
-            <li>Wednesday {{item.Wednesday.date}}: {{item.Wednesday.currentStatus}} {{item.Wednesday.rendered}}</li>
-            <li>Thursday {{item.Thursday.date}}: {{item.Thursday.currentStatus}} {{item.Thursday.rendered}}</li>
-            <li>Friday {{item.Friday.date}}: {{item.Friday.currentStatus}} {{item.Friday.rendered}}</li>
-            <li>Saturday {{item.Saturday.date}}: {{item.Saturday.currentStatus}} {{item.Saturday.rendered}}</li>
+            <li>{{item.dayOfWeek}} {{item.ymdDate}}: {{item.currentStatus}} {{item.hours}}</li>
           </template>
         </ul></dd>
       </dl>
@@ -103,13 +96,7 @@
         <dt>Next Week</dt>
         <dd><ul>
           <template is="dom-repeat" items="{{days}}">
-            <li>Sunday {{item.Sunday.date}}: {{item.Sunday.currentStatus}} {{item.Sunday.rendered}}</li>
-            <li>Monday {{item.Monday.date}}: {{item.Monday.currentStatus}} {{item.Monday.rendered}}</li>
-            <li>Tuesday {{item.Tuesday.date}}: {{item.Tuesday.currentStatus}} {{item.Tuesday.rendered}}</li>
-            <li>Wednesday {{item.Wednesday.date}}: {{item.Wednesday.currentStatus}} {{item.Wednesday.rendered}}</li>
-            <li>Thursday {{item.Thursday.date}}: {{item.Thursday.currentStatus}} {{item.Thursday.rendered}}</li>
-            <li>Friday {{item.Friday.date}}: {{item.Friday.currentStatus}} {{item.Friday.rendered}}</li>
-            <li>Saturday {{item.Saturday.date}}: {{item.Saturday.currentStatus}} {{item.Saturday.rendered}}</li>
+            <li>{{item.dayOfWeek}} {{item.mdDate}}: {{item.currentStatus}} {{item.hours}}</li>
           </template>
         </ul></dd>
       </dl>
@@ -128,7 +115,7 @@
         <dt>Old Week</dt>
         <dd><ul>
           <template is="dom-repeat" items="{{days}}">
-            <li>{{item.dayOfWeek}} {{index}}: <template is="dom-if" if="{{item.isToday}}"><strong>{{item.currentStatus}}</strong></template> {{item.hours}}</li>
+            <li>{{item.dayOfWeek}} {{item.ymdDate}}: <template is="dom-if" if="{{item.isToday}}"><strong>{{item.currentStatus}}</strong></template> {{item.hours}}</li>
           </template>
         </ul></dd>
       </dl>
@@ -138,17 +125,19 @@
 
 <div class="vertical-section-container centered">
   <demo-snippet>
-    <template is="dom-bind">
+    <template is="dom-bind" id="last">
       <uvalib-model-weeks library="Clemons" num-weeks="2" name="{{libName}}" data="{{weeks}}"></uvalib-model-weeks>
 
       <h2>Selection using library for two weeks</h2>
       <h3>{{libName}}</h3>
       <dl>
-        <template is="dom-repeat" items="{{weeks}}" as="week">
-          <uvalib-model-days object="{{week}}" data="{{days}}"></uvalib-model-days>
-          <dt>Week</dt>
+        <template is="dom-repeat" items="{{weeks}}">
+          <dt>Week {{index}}</dt>
           <dd><ul>
-            <li>{{index}}: {{item.currentStatus}} {{item.hours}}</li>
+            <uvalib-model-days object="[[item]]" data="{{days}}"></uvalib-model-days>
+            <template is="dom-repeat" items="{{days}}" as="day">
+              <li>{{day.dayOfWeek}} {{day.ymdDate}}: {{day.currentStatus}} {{day.hours}}</li>
+            </template>
           </ul></dd>
         </template>
       </dl>
