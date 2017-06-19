@@ -3,7 +3,7 @@
   "description": "data models used for the Library site",
   "main": "uvalib-models.html",
   "dependencies": {
-    "uvalib-elements": "uvalib-components/uvalib-elements#latest"
+    "uvalib-elements": "uvalib-components/uvalib-elements#master"
   },
   "devDependencies": {
     "google-map": "GoogleWebComponents/google-map#^1.2.0",
@@ -33,6 +33,8 @@
     "uvalib-footer": "master",
     "lodash": "^4.17.4",
     "iron-icons": "^1.2.1",
-    "app-storage": "^0.9.8"
+    "app-storage": "^0.9.8",
+    "uvalib-images": "master",
+    "uva-footer": "master"
   }
 }
