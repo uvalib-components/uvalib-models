@@ -4,8 +4,5 @@
   "main": "uvalib-models.html",
   "dependencies": {
     "uvalib-elements": "uvalib-components/uvalib-elements#master"
-  },
-  "devDependencies": {
-    "google-map": "GoogleWebComponents/google-map#^1.2.0",
   }
 }
