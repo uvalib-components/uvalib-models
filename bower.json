@@ -7,35 +7,5 @@
   },
   "devDependencies": {
     "google-map": "GoogleWebComponents/google-map#^1.2.0",
-    "uvalib-images": "uvalib-components/uvalib-images"
-  },
-  "resolutions": {
-    "polymer": "^1.8.1",
-    "uvalib-elements": "master",
-    "uvalib-analytics": "master",
-    "uvalib-banner": "master",
-    "uvalib-button": "master",
-    "uvalib-header": "master",
-    "uvalib-events-card": "master",
-    "uvalib-helper-libs": "master",
-    "uvalib-alerts": "master",
-    "uvalib-card": "master",
-    "uvalib-hours-card": "master",
-    "uvalib-logos": "master",
-    "uvalib-social-links": "master",
-    "uvalib-nav": "master",
-    "uvalib-models": "master",
-    "uvalib-liame": "master",
-    "uvalib-search-box": "master",
-    "uvalib-news-section": "master",
-    "uvalib-skip-nav": "master",
-    "uvalib-theme": "master",
-    "uvalib-footer": "master",
-    "uvalib-models": "master",
-    "lodash": "^4.17.4",
-    "iron-icons": "^1.2.1",
-    "app-storage": "^0.9.8",
-    "uvalib-images": "master",
-    "uva-footer": "master"
   }
 }
