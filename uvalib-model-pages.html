@@ -1,7 +1,9 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../polymerfire/firebase.html">
 <link rel="import" href="../polymerfire/firebase-query.html">
+<!--
 <link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+-->
 <link rel="import" href="firebase-app.html">
 <link rel="import" href="../uvalib-helper-libs/uvalib-helper-behaviors.html">
 
@@ -16,13 +18,13 @@ pages model for the Library's API
   <template>
       <firebase-query id="query" app-name="uvalibapi"
         path="/pages" order-by-child="path" equal-to="[[_path]]"
-        data="{{tmpData}}" zero-value="[]"></firebase-query>
-
+        data="{{pages}}" zero-value="[]"></firebase-query>
+<!--
     <app-indexeddb-mirror
         key="[[_generateCacheKey(path)]]"
         data="[[tmpData]]"
         persisted-data="{{pages}}"></app-indexeddb-mirror>
-
+-->
   </template>
 
   <script>
