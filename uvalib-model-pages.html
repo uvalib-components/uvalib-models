@@ -18,13 +18,11 @@ pages model for the Library's API
   <template>
       <firebase-query id="query" app-name="uvalibapi"
         path="/pages" order-by-child="path" equal-to="[[_path]]"
-        data="{{pages}}" zero-value="[]"></firebase-query>
-<!--
+        data="{{tmpData}}" zero-value="[]"></firebase-query>
     <app-indexeddb-mirror
         key="[[_generateCacheKey(path)]]"
         data="[[tmpData]]"
         persisted-data="{{pages}}"></app-indexeddb-mirror>
--->
   </template>
 
   <script>

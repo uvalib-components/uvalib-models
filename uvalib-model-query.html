@@ -1,9 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../polymerfire/firebase.html">
 <link rel="import" href="../polymerfire/firebase-query.html">
-<!--
 <link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
--->
 <link rel="import" href="firebase-app.html">
 
 <!--
@@ -20,20 +18,18 @@ data query model for the Library's API
         path="/[[contentType]]"
         order-by-child="featured"
         start-at="[[_start]]" end-at="[[_end]]"
-        data="{{data}}" zero-value="[]" query="{{query}}"></firebase-query>
+        data="{{tmpData}}" zero-value="[]" query="{{query}}"></firebase-query>
     </template>
     <template is="dom-if" if="[[!featured]]" restamp>
       <firebase-query id="query" app-name="uvalibapi"
         path="/[[contentType]]"
-        data="{{data}}" zero-value="[]" query="{{query}}"></firebase-query>
+        data="{{tmpData}}" zero-value="[]" query="{{query}}"></firebase-query>
     </template>
-<!--
     <app-indexeddb-mirror
         key="[[_generateCacheKey(featured)]]"
         data="[[tmpData]]"
         persisted-data="{{data}}">
     </app-indexeddb-mirror>
-  -->
   </template>
 
   <script>
