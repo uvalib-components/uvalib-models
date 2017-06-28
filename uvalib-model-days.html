@@ -148,6 +148,7 @@ data model for days in a week for a library location.
             info.month = moment(info.ymdDate).format("MMMM");
             if (data[0][day].date == today) {
               info.isToday = true;
+              if (data[0][day].times && data[0][day].times.hours)
               info.currentStatus = this._currentStatus(data[0][day].times.hours[0].from,data[0][day].times.hours[0].to);
             }
             i = moment(info.ymdDate).format("e");
