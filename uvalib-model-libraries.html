@@ -38,7 +38,7 @@ data model for the libraries used for the Library site
          */
         data: {
           type: Array,
-          computed: '_processList(_libdata, filter)',
+//          computed: '_processList(_libdata, filter)',
           notify: true,
           readOnly: true
         },
@@ -50,16 +50,23 @@ data model for the libraries used for the Library site
           value: null,
         },
 
-        _libdata: Array,
+        _libdata: {
+          observer: '_processList',
+          type: Array,
+        }
 
       },
 
       _processList: function(){
-        if (this.filter) {
-          return _.filter(this._libdata, this.filter);
-        } else {
-          return _.filter(this._libdata);
-        }
+        this.debounce('libbounce', function(){
+          if (this._libdata && this._libdata.length > 0) {
+            if (this.filter) {
+              this._setData(_.sortBy(_.filter(this._libdata, this.filter), ['title']) );
+            } else {
+              this._setData(_.sortBy(_.filter(this._libdata), ['title']) );
+            }
+          }
+        }, 100);
       }
 
     });
