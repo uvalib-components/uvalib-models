@@ -60,11 +60,9 @@ data model for the libraries used for the Library site
       _processList: function(){
         this.debounce('libbounce', function(){
           if (this._libdata && this._libdata.length > 0) {
-            if (this.filter) {
-              this._setData(_.sortBy(_.filter(this._libdata, this.filter), ['title']) );
-            } else {
-              this._setData(_.sortBy(_.filter(this._libdata), ['title']) );
-            }
+            var temp = (this.filter)?
+              _.filter(this._libdata, this.filter): this._libdata;
+            this._setData(_.orderBy(temp, ['shortTitle'],['asc']) );
           }
         }, 100);
       }
