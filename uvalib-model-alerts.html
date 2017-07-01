@@ -28,8 +28,8 @@ data model for the alerts/notifications used on the Library's Web sites
 
   <script>
     Polymer({
-
       is: 'uvalib-model-alerts',
+      behaviors: [uvalibbehaviors.modelLive],
       properties: {
         _seenAlerts: Object,
         /**

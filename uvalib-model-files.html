@@ -1,10 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../polymerfire/firebase.html">
-<link rel="import" href="../polymerfire/firebase-document.html">
-<link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
-<link rel="import" href="firebase-app.html">
-<link rel="import" href="../uvalib-helper-libs/uvalib-helper-behaviors.html">
 <link rel="import" href="../uvalib-helper-libs/lodash.html">
+<link rel="import" href="uvalib-model-static-behavior.html">
 
 <!--
 `uvalib-model-files`
@@ -14,30 +10,14 @@ data model for the files used for the Library site
 -->
 
 <dom-module id="uvalib-model-files">
-  <template>
-    <firebase-document id="query" app-name="uvalibapi"
-      path="/files"
-      data="{{tmpData}}"></firebase-document>
-    <app-indexeddb-mirror
-        key="files"
-        data="[[tmpData]]"
-        persisted-data="{{data}}"></app-indexeddb-mirror>
-  </template>
-
   <script>
     Polymer({
-
       is: 'uvalib-model-files',
+      behaviors: [uvalibbehaviors.modelStatic],
       properties: {
-        /**
-         * The files
-         *
-         * @type {Object[]}
-         */
-        data: {
-          type: Array,
-          value: {},
-          notify: true
+        _path: {
+          type: String,
+          value: "/files"
         },
         files: {
           computed: 'computeFiles(data)',
