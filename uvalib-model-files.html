@@ -15,6 +15,17 @@ data model for the files used for the Library site
       is: 'uvalib-model-files',
       behaviors: [uvalibbehaviors.modelStatic],
       properties: {
+        /**
+         * The data for the model from the Library API
+         *
+         * @type {Object[]}
+         */
+        data: {
+          type: Array,
+          value: [],
+          readOnly: true,
+          notify: true
+        },
         _path: {
           type: String,
           value: "/files"

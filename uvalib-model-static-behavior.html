@@ -11,17 +11,6 @@
   window.uvalibbehaviors = window.uvalibbehaviors || {};
   uvalibbehaviors.modelStatic = {
     properties: {
-      /**
-       * The data for the model from the Library API
-       *
-       * @type {Object[]}
-       */
-      data: {
-        type: Array,
-        value: [],
-        readOnly: true,
-        notify: true
-      },
       _path: {
         type: String,
         value: ""
@@ -35,7 +24,10 @@
       fetch( this._baseURL + this._path + ".json" )
         .then(function(response){
           response.json().then(function(data){
-            this._setData( _.values(data) );
+            if (this.properties.data.type == Array)
+              this._setData( _.values(data) );
+            else
+              this._setData(data);
           }.bind(this));
         }.bind(this))
         .catch(function(ex){
