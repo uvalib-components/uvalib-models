@@ -1,7 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../polymerfire/firebase-document.html">
-<link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
-<link rel="import" href="firebase-app.html">
+<link rel="import" href="uvalib-model-static-behavior.html">
 
 <!--
 `uvalib-model-file`
@@ -11,36 +9,19 @@ data model for the files used for the Library site
 -->
 
 <dom-module id="uvalib-model-file">
-  <template>
-    <template is="dom-if" if="[[uuid]]">
-      <firebase-document id="query" app-name="uvalibapi"
-        path="[[_dbPath(uuid)]]"
-        data="{{tmpData}}"></firebase-document>
-      <app-indexeddb-mirror
-          key="file-[[uuid]]"
-          data="[[tmpData]]"
-          persisted-data="{{data}}"></app-indexeddb-mirror>
-    </template>
-  </template>
 
   <script>
     Polymer({
-
+      behaviors: [uvalibbehaviors.modelStatic],
       is: 'uvalib-model-file',
       properties: {
+        _path: {
+          type: String,
+          computed: '_dbPath(uuid)'
+        },
         uuid: {
           type: String,
           value: null
-        },
-        /**
-         * The file
-         *
-         * @type Object
-         */
-        data: {
-          type: Object,
-          value: null,
-          notify: true
         },
         rawData: {
           type: String,
@@ -72,7 +53,10 @@ data model for the files used for the Library site
         return JSON.stringify(data);
       },
       _dbPath: function(uuid){
-        return '/files/'+uuid;
+        if (uuid)
+          return '/files/'+uuid;
+        else
+          return null;
       },
       /**
        * from: https://developers.google.com/speed/webp/faq
