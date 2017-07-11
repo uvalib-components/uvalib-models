@@ -13,28 +13,32 @@
     properties: {
       _path: {
         type: String,
-        value: ""
+        value: "",
+        observer: "fetch"
       },
       _baseURL: {
         type: String,
-        value: "https://uvalib-api.firebaseio.com"
+        value: "https://uvalib-api.firebaseio.com",
+        observer: "fetch"
       }
     },
     ready: function(){
-      fetch( this._baseURL + this._path + ".json" )
-        .then(function(response){
-          response.json().then(function(data){
-            if (this.properties.data.type == Array)
-              this._setData( _.values(data) );
-            else
-              this._setData(data);
-          }.bind(this));
-        }.bind(this))
-        .catch(function(ex){
-          console.log('parsing json failed', ex);
-        });
+      this.fetch();
     },
-
+    fetch: function (){
+      if (this._path)
+        fetch( this._baseURL + this._path + ".json" )
+          .then(function(response){
+            response.json().then(function(data){
+              if (this.properties.data.type == Array)
+                this._setData( _.values(data) );
+              else
+                this._setData(data);
+            }.bind(this));
+          }.bind(this))
+          .catch(function(ex){
+            console.log('parsing json failed', ex);
+          });
+    }
   };
-
 </script>
