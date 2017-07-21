@@ -2,6 +2,7 @@
 <link rel="import" href="../polymerfire/firebase.html">
 <link rel="import" href="../polymerfire/firebase-query.html">
 <link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+<link rel="import" href="../uvalib-helper-libs/uvalib-helper-behaviors.html">
 <link rel="import" href="firebase-app.html">
 
 <!--
@@ -17,12 +18,12 @@ data query model for the Library's API
       <firebase-query id="query" app-name="uvalibapi"
         path="/[[contentType]]"
         order-by-child="featured"
-        start-at="[[_start]]" end-at="[[_end]]"
+        start-at="[[_start]]" end-at="[[_end]]" equal-to="[[equalTo]]"
         data="{{tmpData}}" zero-value="[]" query="{{query}}"></firebase-query>
     </template>
     <template is="dom-if" if="[[!featured]]" restamp>
       <firebase-query id="query" app-name="uvalibapi"
-        path="/[[contentType]]"
+        path="/[[contentType]]" equal-to="[[equalTo]]" order-by-child="[[orderBy]]"
         data="{{tmpData}}" zero-value="[]" query="{{query}}"></firebase-query>
     </template>
     <app-indexeddb-mirror
@@ -36,15 +37,17 @@ data query model for the Library's API
     Polymer({
 
       is: 'uvalib-model-query',
+      behaviors: [uvalibbehaviors.helpers],
+      observers: ['_dataChanged(data.splices)'],
       properties: {
         /**
-         * The Services Object
+         * The Object from the Library API
          *
          * @type {Object[]}
          */
         data: {
           type: Array,
-          value: [],
+          value: function(){return []},
           notify: true
         },
         /**
@@ -68,11 +71,24 @@ data query model for the Library's API
         _end: {
           type: Number,
           value: 10000
-        }
+        },
+        random: {
+          type: Object,
+          notify: true
+        },
+        orderBy: String,
+        equalTo: String,
       },
       _generateCacheKey: function(featured) {
         return (featured)? this.contentType+"-featured":
                            this.contentType;
+      },
+      _dataChanged: function(){
+        this.debounce('datachangebounce',function(){
+          if (!this.random) {
+            this.set('random',this._random(this.data));
+          }
+        },50);
       }
 
     });

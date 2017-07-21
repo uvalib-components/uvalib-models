@@ -20,10 +20,21 @@
         type: String,
         value: "https://uvalib-api.firebaseio.com",
         observer: "fetch"
-      }
+      },
+      shallow: {
+        type: Boolean,
+        value: false
+      },
+      _url: '_compileURL(_baseURL, _path, shallow)'
     },
     ready: function(){
       this.fetch();
+    },
+    _compileURL: function(base, path, shallow){
+      var tmp = base + path + ".json";
+      if (shallow) {
+        tmp += "?shallow=true";
+      }
     },
     fetch: function (){
       if (this._path)
