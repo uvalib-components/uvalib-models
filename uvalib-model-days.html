@@ -190,13 +190,20 @@ data model for days in a week for a library location.
         var status = '';
         var opening = (openTime.includes(":")) ? moment(openTime, "h:mma") : moment(openTime, "ha");
         var closing = (closeTime.includes(":")) ? moment(closeTime, "h:mma") : moment(closeTime, "ha");
-        if (opening.isAfter(moment()) && opening.subtract(this.soonInterval, 'minutes').isBefore(moment())) {
+        var now = moment();
+
+        // See if closing time should be the next day (if starts before opening time)
+        if (closing.isBefore(opening)) {
+          closing.add(1, 'days');
+        }
+
+        if (opening.isAfter(now) && opening.subtract(this.soonInterval, 'minutes').isBefore(now)) {
           status = "Opening soon";
-        } else if (closing.isAfter(moment()) && closing.subtract(this.soonInterval, 'minutes').isBefore(moment())) {
+        } else if (closing.isAfter(now) && closing.subtract(this.soonInterval, 'minutes').isBefore(now)) {
           status = "Closing soon";
-        } else if (opening.isBefore(moment()) && closing.isAfter(moment())) {
+        } else if (opening.isBefore(now) && closing.isAfter(now)) {
           status = "Open";
-        } else if (closing.isBefore(moment())) {
+        } else if (closing.isBefore(now)) {
           status = "Closed";
         }
         return status;
