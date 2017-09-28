@@ -1,7 +1,9 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../polymerfire/firebase.html">
 <link rel="import" href="../polymerfire/firebase-document.html">
+<!--
 <link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+-->
 <link rel="import" href="../uvalib-helper-libs/lodash.html">
 <link rel="import" href="firebase-app.html">
 
@@ -16,13 +18,15 @@ data model for the hours used for the Library site; current data source for this
   <template>
     <firebase-document id="query" app-name="uvalibapi"
                        path="/hours/locations"
-                       data="{{tmpData}}" zero-value="[]">
+                       data="{{_hourdata}}" zero-value="[]">
     </firebase-document>
+    <!--
     <app-indexeddb-mirror
         key="hours"
         data="{{tmpData}}"
         persisted-data="{{_hourdata}}">
     </app-indexeddb-mirror>
+  -->
   </template>
 
   <script>

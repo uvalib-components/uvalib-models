@@ -1,7 +1,9 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../polymerfire/firebase.html">
 <link rel="import" href="../polymerfire/firebase-document.html">
+<!--
 <link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+-->
 <link rel="import" href="../uvalib-helper-libs/lodash.html">
 <link rel="import" href="firebase-app.html">
 
@@ -16,13 +18,15 @@ data model for the libraries used for the Library site
   <template>
     <firebase-document id="query" app-name="uvalibapi"
       path="/libraries"
-      data="{{tmpData}}" zero-value="[]">
+      data="{{_libdata}}" zero-value="[]">
     </firebase-document>
+    <!--
     <app-indexeddb-mirror
         key="libraries"
         data="{{tmpData}}"
         persisted-data="{{_libdata}}">
     </app-indexeddb-mirror>
+  -->
   </template>
 
   <script>
