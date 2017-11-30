@@ -11,21 +11,25 @@
 
     <link rel="import" href="../uvalib-model-libraries.html">
 
-    <style is="custom-style" include="demo-pages-shared-styles">
-    </style>
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
   </head>
   <body>
 
     <div class="vertical-section-container centered">
       <demo-snippet>
-        <template is="dom-bind">
-          <uvalib-model-libraries filter='{"uuid":"2fe107c6-ee48-40c5-9c57-c5a0a5939aac"}' data="{{libraries}}"></uvalib-model-libraries>
+        <dom-bind>
+          <template is="dom-bind">
+            <uvalib-model-libraries filter='{"uuid":"2fe107c6-ee48-40c5-9c57-c5a0a5939aac"}' data="{{libraries}}"></uvalib-model-libraries>
 
-          <h2>Filtered libraries</h2>
-          <template is="dom-repeat" items="{{libraries}}">
-            <h3>{{item.title}}</h3>
+            <h2>Filtered libraries</h2>
+            <template is="dom-repeat" items="{{libraries}}">
+              <h3>{{item.title}}</h3>
+            </template>
           </template>
-        </template>
+        </dom-bind>
       </demo-snippet>
     </div>
 
