@@ -1,8 +1,11 @@
 {
   "name": "uvalib-models",
-  "description": "data models used for the Library site",
+  "description": "Binds to the UVA Library APIs",
   "main": "uvalib-models.html",
   "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0"
+  },
+  "devDependencies": {
     "uvalib-elements": "uvalib-components/uvalib-elements#master"
   },
   "resolutions": {
